@@ -1,25 +1,24 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesDeleteChatPhoto;
+import api.longpoll.bots.methods.messages.MessagesMarkAsAnsweredConversation;
 import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesDeleteChatPhotoResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DeleteChatPhotoExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(DeleteChatPhotoExample.class);
-    private static final int CHAT_ID = 1;
+public class MarkAsAnsweredConversationExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(MarkAsAnsweredConversationExample.class);
+    private static final int PEER_ID = 2000000001;
 
-    public void deleteChatPhoto() {
+    public void markAsAnsweredConversation() {
         try {
-            GenericResult<MessagesDeleteChatPhotoResponse> result = new MessagesDeleteChatPhoto(this)
+            GenericResult<Integer> result = new MessagesMarkAsAnsweredConversation(this)
                     .setGroupId(getGroupId())
-                    .setChatId(CHAT_ID)
+                    .setPeerId(PEER_ID)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,10 +28,10 @@ public class DeleteChatPhotoExample extends LongPollBot {
         }
     }
 
-    public void deleteChatPhotoAsync() {
-        CompletableFuture<GenericResult<MessagesDeleteChatPhotoResponse>> future = new MessagesDeleteChatPhoto(this)
+    public void markAsAnsweredConversationAsync() {
+        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsAnsweredConversation(this)
                 .setGroupId(getGroupId())
-                .setChatId(CHAT_ID)
+                .setPeerId(PEER_ID)
                 .executeAsync();
 
         // Main thread is free...
@@ -51,8 +50,8 @@ public class DeleteChatPhotoExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        DeleteChatPhotoExample example = new DeleteChatPhotoExample();
-        example.deleteChatPhoto();
-        example.deleteChatPhotoAsync();
+        MarkAsAnsweredConversationExample example = new MarkAsAnsweredConversationExample();
+        example.markAsAnsweredConversation();
+        example.markAsAnsweredConversationAsync();
     }
 }

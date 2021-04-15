@@ -1,25 +1,25 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetConversationMembers;
-import api.longpoll.bots.model.response.ExtendedVkList;
+import api.longpoll.bots.methods.messages.MessagesGetInviteLink;
 import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetConversationMembersResponseItem;
+import api.longpoll.bots.model.response.messages.MessagesGetInviteLinkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetConversationsMembersExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetConversationsMembersExample.class);
-    private static final int PEER_ID = 2000000008;
+public class GetInviteLinkExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetInviteLinkExample.class);
+    private static final int PEER_ID = 2000000001;
 
-    public void editMessage() {
+    public void getInviteLink() {
         try {
-            GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>> result = new MessagesGetConversationMembers(this)
+            GenericResult<MessagesGetInviteLinkResponse> result = new MessagesGetInviteLink(this)
                     .setPeerId(PEER_ID)
+                    .setGroupId(getGroupId())
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,9 +29,10 @@ public class GetConversationsMembersExample extends LongPollBot {
         }
     }
 
-    public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>>> future = new MessagesGetConversationMembers(this)
+    public void getInviteLinkAsync() {
+        CompletableFuture<GenericResult<MessagesGetInviteLinkResponse>> future = new MessagesGetInviteLink(this)
                 .setPeerId(PEER_ID)
+                .setGroupId(getGroupId())
                 .executeAsync();
 
         // Main thread is free...
@@ -50,8 +51,8 @@ public class GetConversationsMembersExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetConversationsMembersExample example = new GetConversationsMembersExample();
-        example.editMessage();
-        example.editMessageAsync();
+        GetInviteLinkExample example = new GetInviteLinkExample();
+        example.getInviteLink();
+        example.getInviteLinkAsync();
     }
 }

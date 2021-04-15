@@ -1,28 +1,25 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetConversationsById;
+import api.longpoll.bots.methods.messages.MessagesSearchConversations;
 import api.longpoll.bots.model.objects.basic.Conversation;
 import api.longpoll.bots.model.response.ExtendedVkList;
 import api.longpoll.bots.model.response.GenericResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetConversationsByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetConversationsByIdExample.class);
-    private static final List<Integer> PEER_IDS = Collections.singletonList(2000000008);
+public class SearchConversationsExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(SearchConversationsExample.class);
 
-    public void getConversationsById() {
+    public void searchConversations() {
         try {
-            GenericResult<ExtendedVkList<Conversation>> result = new MessagesGetConversationsById(this)
+            GenericResult<ExtendedVkList<Conversation>> result = new MessagesSearchConversations(this)
                     .setGroupId(getGroupId())
-                    .setPeerIds(PEER_IDS)
+                    .setQ("java")
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -32,10 +29,10 @@ public class GetConversationsByIdExample extends LongPollBot {
         }
     }
 
-    public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesGetConversationsById(this)
+    public void searchConversationsAsync() {
+        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesSearchConversations(this)
                 .setGroupId(getGroupId())
-                .setPeerIds(PEER_IDS)
+                .setQ("java")
                 .executeAsync();
 
         // Main thread is free...
@@ -54,8 +51,8 @@ public class GetConversationsByIdExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetConversationsByIdExample example = new GetConversationsByIdExample();
-        example.getConversationsById();
-        example.editMessageAsync();
+        SearchConversationsExample example = new SearchConversationsExample();
+        example.searchConversations();
+        example.searchConversationsAsync();
     }
 }

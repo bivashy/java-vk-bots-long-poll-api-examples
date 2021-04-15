@@ -1,4 +1,4 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;

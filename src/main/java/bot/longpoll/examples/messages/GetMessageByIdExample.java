@@ -1,27 +1,27 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesSend;
+import api.longpoll.bots.methods.messages.MessagesGetById;
+import api.longpoll.bots.model.objects.additional.VkList;
+import api.longpoll.bots.model.objects.basic.Message;
 import api.longpoll.bots.model.response.GenericResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class SendMessageExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(SendMessageExample.class);
-    private static final int PEER_ID = 918650328;
-    private static final File PHOTO = new File("static/smiling_cat.png");
+public class GetMessageByIdExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
+    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
 
-    public void sendMessage() {
+    public void getMessageById() {
         try {
-            GenericResult<Object> result = new MessagesSend(this)
-                    .setPeerId(PEER_ID)
-                    .setMessage("Sent you photo:")
-                    .addPhoto(PHOTO)
+            GenericResult<VkList<Message>> result = new MessagesGetById(this)
+                    .setMessageIds(MESSAGE_IDS)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -31,11 +31,9 @@ public class SendMessageExample extends LongPollBot {
         }
     }
 
-    public void sendMessageAsync() {
-        CompletableFuture<GenericResult<Object>> future = new MessagesSend(this)
-                .setPeerId(PEER_ID)
-                .setMessage("Sent you photo async:")
-                .addPhoto(PHOTO)
+    public void getMessageByIdAsync() {
+        CompletableFuture<GenericResult<VkList<Message>>> future = new MessagesGetById(this)
+                .setMessageIds(MESSAGE_IDS)
                 .executeAsync();
 
         // Main thread is free...
@@ -54,8 +52,8 @@ public class SendMessageExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        SendMessageExample example = new SendMessageExample();
-        example.sendMessage();
-        example.sendMessageAsync();
+        GetMessageByIdExample example = new GetMessageByIdExample();
+        example.getMessageById();
+        example.getMessageByIdAsync();
     }
 }

@@ -1,25 +1,26 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetHistory;
+import api.longpoll.bots.methods.messages.MessagesCreateChat;
 import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetHistoryResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetHistoryExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetHistoryExample.class);
-    private static final int PEER_ID = 918650328;
+public class CreateChatExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(CreateChatExample.class);
+    private static final List<Integer> USER_IDS = Collections.singletonList(918650328);
 
-    public void getHistory() {
+    public void createChat() {
         try {
-            GenericResult<MessagesGetHistoryResponse> result = new MessagesGetHistory(this)
-                    .setPeerId(PEER_ID)
-                    .setGroupId(getGroupId())
+            GenericResult<Integer> result = new MessagesCreateChat(this)
+                    .setTitle("New Chat")
+                    .setUserIds(USER_IDS)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,10 +30,10 @@ public class GetHistoryExample extends LongPollBot {
         }
     }
 
-    public void getHistoryAsync() {
-        CompletableFuture<GenericResult<MessagesGetHistoryResponse>> future = new MessagesGetHistory(this)
-                .setPeerId(PEER_ID)
-                .setGroupId(getGroupId())
+    public void createChatAsync() {
+        CompletableFuture<GenericResult<Integer>> future = new MessagesCreateChat(this)
+                .setTitle("New Char Async")
+                .setUserIds(USER_IDS)
                 .executeAsync();
 
         // Main thread is free...
@@ -51,8 +52,8 @@ public class GetHistoryExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetHistoryExample example = new GetHistoryExample();
-        example.getHistory();
-        example.getHistoryAsync();
+        CreateChatExample example = new CreateChatExample();
+        example.createChat();
+        example.createChatAsync();
     }
 }

@@ -1,4 +1,4 @@
-package bot.longpoll.examples;
+package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class DeleteMessageExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(DeleteMessageExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(895);
+    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(726);
 
     public void deleteMessage() {
         try {
