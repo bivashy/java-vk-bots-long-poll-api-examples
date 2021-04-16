@@ -23,6 +23,7 @@ public class GetConversationsByIdExample extends LongPollBot {
             GenericResult<ExtendedVkList<Conversation>> result = new MessagesGetConversationsById(this)
                     .setGroupId(getGroupId())
                     .setPeerIds(PEER_IDS)
+                    .setExtended(true)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -36,6 +37,7 @@ public class GetConversationsByIdExample extends LongPollBot {
         CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesGetConversationsById(this)
                 .setGroupId(getGroupId())
                 .setPeerIds(PEER_IDS)
+                .setExtended(true)
                 .executeAsync();
 
         // Main thread is free...
