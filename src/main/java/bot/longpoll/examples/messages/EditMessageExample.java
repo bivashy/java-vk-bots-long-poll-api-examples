@@ -18,7 +18,7 @@ public class EditMessageExample extends LongPollBot {
 
     public void editMessage() {
         try {
-            GenericResult<Integer> result = new MessagesEdit(this)
+            GenericResult<Integer> result = new MessagesEdit(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessageId(699)
                     .setMessage("Corrected message")
@@ -33,7 +33,7 @@ public class EditMessageExample extends LongPollBot {
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesEdit(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesEdit(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setMessageId(700)
                 .setMessage("Corrected message")

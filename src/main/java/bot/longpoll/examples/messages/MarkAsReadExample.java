@@ -17,7 +17,7 @@ public class MarkAsReadExample extends LongPollBot {
 
     public void markAsRead() {
         try {
-            GenericResult<Integer> result = new MessagesMarkAsRead(this)
+            GenericResult<Integer> result = new MessagesMarkAsRead(getAccessToken())
                     .setStartMessageId(START_MESSAGE_ID)
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
@@ -31,7 +31,7 @@ public class MarkAsReadExample extends LongPollBot {
     }
 
     public void markAsReadAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsRead(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsRead(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setStartMessageId(START_MESSAGE_ID)

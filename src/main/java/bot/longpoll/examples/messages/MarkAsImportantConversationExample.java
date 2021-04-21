@@ -16,7 +16,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversation() {
         try {
-            GenericResult<Integer> result = new MessagesMarkAsImportantConversation(this)
+            GenericResult<Integer> result = new MessagesMarkAsImportantConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -29,7 +29,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
     }
 
     public void markAsImportantConversationAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsImportantConversation(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsImportantConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

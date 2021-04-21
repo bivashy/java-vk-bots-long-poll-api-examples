@@ -17,7 +17,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
 
     public void deleteChatPhoto() {
         try {
-            GenericResult<MessagesDeleteChatPhotoResponse> result = new MessagesDeleteChatPhoto(this)
+            GenericResult<MessagesDeleteChatPhotoResponse> result = new MessagesDeleteChatPhoto(getAccessToken())
                     .setGroupId(getGroupId())
                     .setChatId(CHAT_ID)
                     .execute();
@@ -30,7 +30,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
     }
 
     public void deleteChatPhotoAsync() {
-        CompletableFuture<GenericResult<MessagesDeleteChatPhotoResponse>> future = new MessagesDeleteChatPhoto(this)
+        CompletableFuture<GenericResult<MessagesDeleteChatPhotoResponse>> future = new MessagesDeleteChatPhoto(getAccessToken())
                 .setGroupId(getGroupId())
                 .setChatId(CHAT_ID)
                 .executeAsync();

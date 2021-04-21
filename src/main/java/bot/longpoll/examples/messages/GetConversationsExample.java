@@ -16,7 +16,7 @@ public class GetConversationsExample extends LongPollBot {
 
     public void getConversations() {
         try {
-            GenericResult<MessagesGetConversationsResponse> result = new MessagesGetConversations(this)
+            GenericResult<MessagesGetConversationsResponse> result = new MessagesGetConversations(getAccessToken())
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -28,7 +28,7 @@ public class GetConversationsExample extends LongPollBot {
     }
 
     public void getConversationsAsync() {
-        CompletableFuture<GenericResult<MessagesGetConversationsResponse>> future = new MessagesGetConversations(this)
+        CompletableFuture<GenericResult<MessagesGetConversationsResponse>> future = new MessagesGetConversations(getAccessToken())
                 .setGroupId(getGroupId())
                 .executeAsync();
 

@@ -16,7 +16,7 @@ public class RestoreMessageExample extends LongPollBot {
 
     public void restoreMessage() {
         try {
-            GenericResult<Integer> result = new MessagesRestore(this)
+            GenericResult<Integer> result = new MessagesRestore(getAccessToken())
                     .setMessageId(MESSAGE_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -29,7 +29,7 @@ public class RestoreMessageExample extends LongPollBot {
     }
 
     public void restoreMessageAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesRestore(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesRestore(getAccessToken())
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

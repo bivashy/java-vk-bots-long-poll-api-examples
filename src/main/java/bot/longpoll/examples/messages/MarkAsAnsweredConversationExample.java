@@ -16,7 +16,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
 
     public void markAsAnsweredConversation() {
         try {
-            GenericResult<Integer> result = new MessagesMarkAsAnsweredConversation(this)
+            GenericResult<Integer> result = new MessagesMarkAsAnsweredConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -29,7 +29,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
     }
 
     public void markAsAnsweredConversationAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsAnsweredConversation(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsAnsweredConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

@@ -17,7 +17,7 @@ public class GetHistoryExample extends LongPollBot {
 
     public void getHistory() {
         try {
-            GenericResult<MessagesGetHistoryResponse> result = new MessagesGetHistory(this)
+            GenericResult<MessagesGetHistoryResponse> result = new MessagesGetHistory(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -30,7 +30,7 @@ public class GetHistoryExample extends LongPollBot {
     }
 
     public void getHistoryAsync() {
-        CompletableFuture<GenericResult<MessagesGetHistoryResponse>> future = new MessagesGetHistory(this)
+        CompletableFuture<GenericResult<MessagesGetHistoryResponse>> future = new MessagesGetHistory(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

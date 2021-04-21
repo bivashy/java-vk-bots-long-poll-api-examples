@@ -20,7 +20,7 @@ public class GetMessageByIdExample extends LongPollBot {
 
     public void getMessageById() {
         try {
-            GenericResult<VkList<Message>> result = new MessagesGetById(this)
+            GenericResult<VkList<Message>> result = new MessagesGetById(getAccessToken())
                     .setMessageIds(MESSAGE_IDS)
                     .execute();
 
@@ -32,7 +32,7 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public void getMessageByIdAsync() {
-        CompletableFuture<GenericResult<VkList<Message>>> future = new MessagesGetById(this)
+        CompletableFuture<GenericResult<VkList<Message>>> future = new MessagesGetById(getAccessToken())
                 .setMessageIds(MESSAGE_IDS)
                 .executeAsync();
 

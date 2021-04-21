@@ -18,7 +18,7 @@ public class PinMessageExample extends LongPollBot {
 
     public void pinMessage() {
         try {
-            GenericResult<PinnedMessage> result = new MessagesPin(this)
+            GenericResult<PinnedMessage> result = new MessagesPin(getAccessToken())
                     .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                     .setPeerId(PEER_ID)
                     .execute();
@@ -31,7 +31,7 @@ public class PinMessageExample extends LongPollBot {
     }
 
     public void pinMessageAsync() {
-        CompletableFuture<GenericResult<PinnedMessage>> future = new MessagesPin(this)
+        CompletableFuture<GenericResult<PinnedMessage>> future = new MessagesPin(getAccessToken())
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();

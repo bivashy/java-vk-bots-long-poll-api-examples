@@ -18,7 +18,7 @@ public class SendMessageExample extends LongPollBot {
 
     public void sendMessage() {
         try {
-            GenericResult<Object> result = new MessagesSend(this)
+            GenericResult<Object> result = new MessagesSend(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessage("Sent you photo:")
                     .addPhoto(PHOTO)
@@ -32,7 +32,7 @@ public class SendMessageExample extends LongPollBot {
     }
 
     public void sendMessageAsync() {
-        CompletableFuture<GenericResult<Object>> future = new MessagesSend(this)
+        CompletableFuture<GenericResult<Object>> future = new MessagesSend(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you photo async:")
                 .addPhoto(PHOTO)

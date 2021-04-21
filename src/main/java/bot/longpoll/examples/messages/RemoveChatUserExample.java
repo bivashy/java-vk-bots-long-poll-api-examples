@@ -17,7 +17,7 @@ public class RemoveChatUserExample extends LongPollBot {
 
     public void removeChatUser() {
         try {
-            GenericResult<Integer> result = new MessagesRemoveChatUser(this)
+            GenericResult<Integer> result = new MessagesRemoveChatUser(getAccessToken())
                     .setChatId(CHAT_ID)
                     .setUserId(USER_ID)
                     .execute();
@@ -30,7 +30,7 @@ public class RemoveChatUserExample extends LongPollBot {
     }
 
     public void removeChatUserAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesRemoveChatUser(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesRemoveChatUser(getAccessToken())
                 .setChatId(CHAT_ID)
                 .setUserId(USER_ID)
                 .executeAsync();

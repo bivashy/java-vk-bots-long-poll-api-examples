@@ -19,7 +19,7 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessage() {
         try {
-            GenericResult<Map<String, Integer>> result = new MessagesDelete(this)
+            GenericResult<Map<String, Integer>> result = new MessagesDelete(getAccessToken())
                     .setDeleteForAll(true)
                     .setMessageIds(MESSAGE_IDS)
                     .setGroupId(getGroupId())
@@ -33,7 +33,7 @@ public class DeleteMessageExample extends LongPollBot {
     }
 
     public void deleteMessageAsync() {
-        CompletableFuture<GenericResult<Map<String, Integer>>> future = new MessagesDelete(this)
+        CompletableFuture<GenericResult<Map<String, Integer>>> future = new MessagesDelete(getAccessToken())
                 .setDeleteForAll(true)
                 .setMessageIds(MESSAGE_IDS)
                 .setGroupId(getGroupId())

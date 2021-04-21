@@ -16,7 +16,7 @@ public class EditChatExample extends LongPollBot {
 
     public void editChat() {
         try {
-            GenericResult<Integer> result = new MessagesEditChat(this)
+            GenericResult<Integer> result = new MessagesEditChat(getAccessToken())
                     .setChatId(CHAT_ID)
                     .setTitle("Title changed sync")
                     .execute();
@@ -29,7 +29,7 @@ public class EditChatExample extends LongPollBot {
     }
 
     public void editChatAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesEditChat(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesEditChat(getAccessToken())
                 .setChatId(CHAT_ID)
                 .setTitle("Title changed async")
                 .executeAsync();

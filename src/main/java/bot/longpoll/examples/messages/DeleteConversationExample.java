@@ -17,7 +17,7 @@ public class DeleteConversationExample extends LongPollBot {
 
     public void deleteConversation() {
         try {
-            GenericResult<MessagesDeleteConversationResponse> result = new MessagesDeleteConversation(this)
+            GenericResult<MessagesDeleteConversationResponse> result = new MessagesDeleteConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(CHAT_ID)
                     .execute();
@@ -30,7 +30,7 @@ public class DeleteConversationExample extends LongPollBot {
     }
 
     public void deleteConversationAsync() {
-        CompletableFuture<GenericResult<MessagesDeleteConversationResponse>> future = new MessagesDeleteConversation(this)
+        CompletableFuture<GenericResult<MessagesDeleteConversationResponse>> future = new MessagesDeleteConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(CHAT_ID)
                 .executeAsync();

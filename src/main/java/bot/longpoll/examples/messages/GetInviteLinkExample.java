@@ -17,7 +17,7 @@ public class GetInviteLinkExample extends LongPollBot {
 
     public void getInviteLink() {
         try {
-            GenericResult<MessagesGetInviteLinkResponse> result = new MessagesGetInviteLink(this)
+            GenericResult<MessagesGetInviteLinkResponse> result = new MessagesGetInviteLink(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -30,7 +30,7 @@ public class GetInviteLinkExample extends LongPollBot {
     }
 
     public void getInviteLinkAsync() {
-        CompletableFuture<GenericResult<MessagesGetInviteLinkResponse>> future = new MessagesGetInviteLink(this)
+        CompletableFuture<GenericResult<MessagesGetInviteLinkResponse>> future = new MessagesGetInviteLink(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

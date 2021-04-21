@@ -20,7 +20,7 @@ public class GetConversationsByIdExample extends LongPollBot {
 
     public void getConversationsById() {
         try {
-            GenericResult<ExtendedVkList<Conversation>> result = new MessagesGetConversationsById(this)
+            GenericResult<ExtendedVkList<Conversation>> result = new MessagesGetConversationsById(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerIds(PEER_IDS)
                     .setExtended(true)
@@ -34,7 +34,7 @@ public class GetConversationsByIdExample extends LongPollBot {
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesGetConversationsById(this)
+        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesGetConversationsById(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerIds(PEER_IDS)
                 .setExtended(true)

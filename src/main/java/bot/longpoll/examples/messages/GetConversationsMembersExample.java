@@ -18,7 +18,7 @@ public class GetConversationsMembersExample extends LongPollBot {
 
     public void editMessage() {
         try {
-            GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>> result = new MessagesGetConversationMembers(this)
+            GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>> result = new MessagesGetConversationMembers(getAccessToken())
                     .setPeerId(PEER_ID)
                     .execute();
 
@@ -30,7 +30,7 @@ public class GetConversationsMembersExample extends LongPollBot {
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>>> future = new MessagesGetConversationMembers(this)
+        CompletableFuture<GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>>> future = new MessagesGetConversationMembers(getAccessToken())
                 .setPeerId(PEER_ID)
                 .executeAsync();
 

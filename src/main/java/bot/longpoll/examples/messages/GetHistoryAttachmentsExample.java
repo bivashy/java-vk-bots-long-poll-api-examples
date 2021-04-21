@@ -17,7 +17,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachments() {
         try {
-            GenericResult<MessagesGetHistoryAttachmentsResponse> result = new MessagesGetHistoryAttachments(this)
+            GenericResult<MessagesGetHistoryAttachmentsResponse> result = new MessagesGetHistoryAttachments(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setMediaType("photo")
@@ -31,7 +31,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
     }
 
     public void getHistoryAttachmentsAsync() {
-        CompletableFuture<GenericResult<MessagesGetHistoryAttachmentsResponse>> future = new MessagesGetHistoryAttachments(this)
+        CompletableFuture<GenericResult<MessagesGetHistoryAttachmentsResponse>> future = new MessagesGetHistoryAttachments(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")

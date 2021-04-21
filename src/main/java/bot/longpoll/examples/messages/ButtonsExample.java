@@ -43,7 +43,7 @@ public class ButtonsExample extends LongPollBot {
 
             Keyboard keyboard = new Keyboard().setButtons(Arrays.asList(row1, row2));
 
-            GenericResult<Object> result = new MessagesSend(this)
+            GenericResult<Object> result = new MessagesSend(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessage("Buttons example")
                     .setKeyboard(keyboard)
@@ -71,7 +71,7 @@ public class ButtonsExample extends LongPollBot {
 
             Template.Carousel carousel = new Template.Carousel().setElements(Arrays.asList(element1, element2));
 
-            GenericResult<Object> result = new MessagesSend(this)
+            GenericResult<Object> result = new MessagesSend(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessage("Carousel example")
                     .setTemplate(carousel)
@@ -92,7 +92,7 @@ public class ButtonsExample extends LongPollBot {
                     .setButtons(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            GenericResult<Object> result = new MessagesSend(this)
+            GenericResult<Object> result = new MessagesSend(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessage("A Callback button example")
                     .setKeyboard(keyboard)
@@ -107,7 +107,7 @@ public class ButtonsExample extends LongPollBot {
     @Override
     public void onMessageEvent(MessageEvent messageEvent) {
         try {
-            GenericResult<Integer> result = new MessagesSendEventAnswer(this)
+            GenericResult<Integer> result = new MessagesSendEventAnswer(getAccessToken())
                     .setUserId(messageEvent.getUserId())
                     .setPeerId(messageEvent.getPeerId())
                     .setEventId(messageEvent.getEventId())

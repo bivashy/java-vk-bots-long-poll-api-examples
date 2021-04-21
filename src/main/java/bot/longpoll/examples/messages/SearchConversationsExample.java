@@ -17,7 +17,7 @@ public class SearchConversationsExample extends LongPollBot {
 
     public void searchConversations() {
         try {
-            GenericResult<ExtendedVkList<Conversation>> result = new MessagesSearchConversations(this)
+            GenericResult<ExtendedVkList<Conversation>> result = new MessagesSearchConversations(getAccessToken())
                     .setGroupId(getGroupId())
                     .setQ("java")
                     .execute();
@@ -30,7 +30,7 @@ public class SearchConversationsExample extends LongPollBot {
     }
 
     public void searchConversationsAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesSearchConversations(this)
+        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesSearchConversations(getAccessToken())
                 .setGroupId(getGroupId())
                 .setQ("java")
                 .executeAsync();

@@ -18,7 +18,7 @@ public class CreateChatExample extends LongPollBot {
 
     public void createChat() {
         try {
-            GenericResult<Integer> result = new MessagesCreateChat(this)
+            GenericResult<Integer> result = new MessagesCreateChat(getAccessToken())
                     .setTitle("New Chat")
                     .setUserIds(USER_IDS)
                     .execute();
@@ -31,7 +31,7 @@ public class CreateChatExample extends LongPollBot {
     }
 
     public void createChatAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesCreateChat(this)
+        CompletableFuture<GenericResult<Integer>> future = new MessagesCreateChat(getAccessToken())
                 .setTitle("New Char Async")
                 .setUserIds(USER_IDS)
                 .executeAsync();
