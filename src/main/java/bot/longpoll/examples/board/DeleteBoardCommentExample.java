@@ -44,12 +44,12 @@ public class DeleteBoardCommentExample extends LongPollBot {
 
     @Override
     public String getAccessToken() {
-        return "004a7677ca1492027fa6e974b9be3f8f650f691f8e5e587c4cf39e7b0cb678f0ff4ca47b58fe4c9b8b59c";
+        return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
     }
 
     @Override
     public int getGroupId() {
-        return 168975658;
+        return 886761559;
     }
 
     public static void main(String[] args) {
