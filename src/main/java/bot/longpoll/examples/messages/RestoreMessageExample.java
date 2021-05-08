@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesRestore;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class RestoreMessageExample extends LongPollBot {
 
     public void restoreMessage() {
         try {
-            GenericResult<Integer> result = new MessagesRestore(getAccessToken())
+            IntegerResult result = new MessagesRestore(getAccessToken())
                     .setMessageId(MESSAGE_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -29,7 +29,7 @@ public class RestoreMessageExample extends LongPollBot {
     }
 
     public void restoreMessageAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesRestore(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesRestore(getAccessToken())
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

@@ -4,9 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesGetConversationsById;
-import api.longpoll.bots.model.objects.basic.Conversation;
-import api.longpoll.bots.model.response.ExtendedVkList;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.messages.MessagesGetConversationsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +18,7 @@ public class GetConversationsByIdExample extends LongPollBot {
 
     public void getConversationsById() {
         try {
-            GenericResult<ExtendedVkList<Conversation>> result = new MessagesGetConversationsById(getAccessToken())
+            MessagesGetConversationsResult result = new MessagesGetConversationsById(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerIds(PEER_IDS)
                     .setExtended(true)
@@ -34,7 +32,7 @@ public class GetConversationsByIdExample extends LongPollBot {
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesGetConversationsById(getAccessToken())
+        CompletableFuture<MessagesGetConversationsResult> future = new MessagesGetConversationsById(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerIds(PEER_IDS)
                 .setExtended(true)

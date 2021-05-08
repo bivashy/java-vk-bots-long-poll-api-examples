@@ -1,25 +1,24 @@
-package bot.longpoll.examples.messages;
+package bot.longpoll.examples.wall;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetById;
-import api.longpoll.bots.model.response.messages.MessagesGetByIdResult;
+import api.longpoll.bots.methods.wall.WallCloseComments;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetMessageByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
+public class CloseCommentsExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(CloseCommentsExample.class);
+    private static final int POST_ID = 9;
 
-    public void getMessageById() {
+    public void closeComments() {
         try {
-            MessagesGetByIdResult result = new MessagesGetById(getAccessToken())
-                    .setMessageIds(MESSAGE_IDS)
+            IntegerResult result = new WallCloseComments(getAccessToken())
+                    .setPostId(POST_ID)
+                    .setOwnerId(-getGroupId())
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,9 +28,10 @@ public class GetMessageByIdExample extends LongPollBot {
         }
     }
 
-    public void getMessageByIdAsync() {
-        CompletableFuture<MessagesGetByIdResult> future = new MessagesGetById(getAccessToken())
-                .setMessageIds(MESSAGE_IDS)
+    public void closeCommentsAsync() {
+        CompletableFuture<IntegerResult> future = new WallCloseComments(getAccessToken())
+                .setPostId(POST_ID)
+                .setOwnerId(-getGroupId())
                 .executeAsync();
 
         // Main thread is free...
@@ -50,8 +50,8 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetMessageByIdExample example = new GetMessageByIdExample();
-        example.getMessageById();
-        example.getMessageByIdAsync();
+        CloseCommentsExample example = new CloseCommentsExample();
+        example.closeComments();
+        example.closeCommentsAsync();
     }
 }

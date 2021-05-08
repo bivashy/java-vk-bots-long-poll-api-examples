@@ -1,25 +1,23 @@
-package bot.longpoll.examples.messages;
+package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetById;
-import api.longpoll.bots.model.response.messages.MessagesGetByIdResult;
+import api.longpoll.bots.methods.utils.UtilsCheckLink;
+import api.longpoll.bots.model.response.utils.UtilsCheckLinkResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetMessageByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
+public class CheckLinkExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(CheckLinkExample.class);
+    private static final String URL = "https://google.com";
 
-    public void getMessageById() {
+    public void checkLink() {
         try {
-            MessagesGetByIdResult result = new MessagesGetById(getAccessToken())
-                    .setMessageIds(MESSAGE_IDS)
+            UtilsCheckLinkResult result = new UtilsCheckLink(getAccessToken())
+                    .setUrl(URL)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,9 +27,9 @@ public class GetMessageByIdExample extends LongPollBot {
         }
     }
 
-    public void getMessageByIdAsync() {
-        CompletableFuture<MessagesGetByIdResult> future = new MessagesGetById(getAccessToken())
-                .setMessageIds(MESSAGE_IDS)
+    public void checkLinkAsync() {
+        CompletableFuture<UtilsCheckLinkResult> future = new UtilsCheckLink(getAccessToken())
+                .setUrl(URL)
                 .executeAsync();
 
         // Main thread is free...
@@ -50,8 +48,8 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetMessageByIdExample example = new GetMessageByIdExample();
-        example.getMessageById();
-        example.getMessageByIdAsync();
+        CheckLinkExample example = new CheckLinkExample();
+        example.checkLink();
+        example.checkLinkAsync();
     }
 }

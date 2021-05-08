@@ -1,25 +1,21 @@
-package bot.longpoll.examples.messages;
+package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetById;
-import api.longpoll.bots.model.response.messages.MessagesGetByIdResult;
+import api.longpoll.bots.methods.utils.UtilsGetServerTime;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetMessageByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
+public class GetServerTimeExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetServerTimeExample.class);
 
-    public void getMessageById() {
+    public void getServerTime() {
         try {
-            MessagesGetByIdResult result = new MessagesGetById(getAccessToken())
-                    .setMessageIds(MESSAGE_IDS)
+            IntegerResult result = new UtilsGetServerTime(getAccessToken())
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,9 +25,8 @@ public class GetMessageByIdExample extends LongPollBot {
         }
     }
 
-    public void getMessageByIdAsync() {
-        CompletableFuture<MessagesGetByIdResult> future = new MessagesGetById(getAccessToken())
-                .setMessageIds(MESSAGE_IDS)
+    public void getServerTimeAsync() {
+        CompletableFuture<IntegerResult> future = new UtilsGetServerTime(getAccessToken())
                 .executeAsync();
 
         // Main thread is free...
@@ -50,8 +45,8 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetMessageByIdExample example = new GetMessageByIdExample();
-        example.getMessageById();
-        example.getMessageByIdAsync();
+        GetServerTimeExample example = new GetServerTimeExample();
+        example.getServerTime();
+        example.getServerTimeAsync();
     }
 }

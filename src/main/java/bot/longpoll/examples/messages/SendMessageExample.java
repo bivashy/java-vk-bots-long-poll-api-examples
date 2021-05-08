@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesSend;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.messages.MessagesSendResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,7 @@ public class SendMessageExample extends LongPollBot {
 
     public void sendMessage() {
         try {
-            GenericResult<Object> result = new MessagesSend(getAccessToken())
+            MessagesSendResult result = new MessagesSend(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setMessage("Sent you photo:")
                     .addPhoto(PHOTO)
@@ -32,7 +32,7 @@ public class SendMessageExample extends LongPollBot {
     }
 
     public void sendMessageAsync() {
-        CompletableFuture<GenericResult<Object>> future = new MessagesSend(getAccessToken())
+        CompletableFuture<MessagesSendResult> future = new MessagesSend(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you photo async:")
                 .addPhoto(PHOTO)

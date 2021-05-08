@@ -1,10 +1,10 @@
-package bot.longpoll.examples.messages;
+package bot.longpoll.examples.users;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetById;
-import api.longpoll.bots.model.response.messages.MessagesGetByIdResult;
+import api.longpoll.bots.methods.users.UsersGet;
+import api.longpoll.bots.model.response.users.UsersGetResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,14 +12,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class GetMessageByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
+public class GetUserExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetUserExample.class);
+    private static final List<String> USER_IDS = Collections.singletonList("918650328");
 
-    public void getMessageById() {
+    public void getUser() {
         try {
-            MessagesGetByIdResult result = new MessagesGetById(getAccessToken())
-                    .setMessageIds(MESSAGE_IDS)
+            UsersGetResult result = new UsersGet(getAccessToken())
+                    .setUserIds(USER_IDS)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -29,9 +29,9 @@ public class GetMessageByIdExample extends LongPollBot {
         }
     }
 
-    public void getMessageByIdAsync() {
-        CompletableFuture<MessagesGetByIdResult> future = new MessagesGetById(getAccessToken())
-                .setMessageIds(MESSAGE_IDS)
+    public void getUserAsync() {
+        CompletableFuture<UsersGetResult> future = new UsersGet(getAccessToken())
+                .setUserIds(USER_IDS)
                 .executeAsync();
 
         // Main thread is free...
@@ -50,8 +50,8 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetMessageByIdExample example = new GetMessageByIdExample();
-        example.getMessageById();
-        example.getMessageByIdAsync();
+        GetUserExample example = new GetUserExample();
+        example.getUser();
+        example.getUserAsync();
     }
 }

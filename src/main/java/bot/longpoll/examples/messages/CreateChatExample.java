@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesCreateChat;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,7 @@ public class CreateChatExample extends LongPollBot {
 
     public void createChat() {
         try {
-            GenericResult<Integer> result = new MessagesCreateChat(getAccessToken())
+            IntegerResult result = new MessagesCreateChat(getAccessToken())
                     .setTitle("New Chat")
                     .setUserIds(USER_IDS)
                     .execute();
@@ -31,7 +31,7 @@ public class CreateChatExample extends LongPollBot {
     }
 
     public void createChatAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesCreateChat(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesCreateChat(getAccessToken())
                 .setTitle("New Char Async")
                 .setUserIds(USER_IDS)
                 .executeAsync();

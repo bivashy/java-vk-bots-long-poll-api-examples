@@ -1,2 +1,6 @@
 .idea
 target
+*.jar
+replacement.properties
+replace.bat
+revertReplace.bat

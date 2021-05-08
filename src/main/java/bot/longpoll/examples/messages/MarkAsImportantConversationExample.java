@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesMarkAsImportantConversation;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversation() {
         try {
-            GenericResult<Integer> result = new MessagesMarkAsImportantConversation(getAccessToken())
+            IntegerResult result = new MessagesMarkAsImportantConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -29,7 +29,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
     }
 
     public void markAsImportantConversationAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsImportantConversation(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesMarkAsImportantConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

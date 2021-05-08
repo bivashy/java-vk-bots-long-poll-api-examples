@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesRemoveChatUser;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,7 @@ public class RemoveChatUserExample extends LongPollBot {
 
     public void removeChatUser() {
         try {
-            GenericResult<Integer> result = new MessagesRemoveChatUser(getAccessToken())
+            IntegerResult result = new MessagesRemoveChatUser(getAccessToken())
                     .setChatId(CHAT_ID)
                     .setUserId(USER_ID)
                     .execute();
@@ -30,7 +30,7 @@ public class RemoveChatUserExample extends LongPollBot {
     }
 
     public void removeChatUserAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesRemoveChatUser(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesRemoveChatUser(getAccessToken())
                 .setChatId(CHAT_ID)
                 .setUserId(USER_ID)
                 .executeAsync();

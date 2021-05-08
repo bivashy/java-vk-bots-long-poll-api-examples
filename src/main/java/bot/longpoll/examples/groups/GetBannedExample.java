@@ -1,23 +1,21 @@
-package bot.longpoll.examples.messages;
+package bot.longpoll.examples.groups;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetInviteLink;
-import api.longpoll.bots.model.response.messages.MessagesGetInviteLinkResult;
+import api.longpoll.bots.methods.groups.GroupsGetBanned;
+import api.longpoll.bots.model.response.groups.GroupsGetBannedResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetInviteLinkExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetInviteLinkExample.class);
-    private static final int PEER_ID = 2000000001;
+public class GetBannedExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetBannedExample.class);
 
-    public void getInviteLink() {
+    public void getBanned() {
         try {
-            MessagesGetInviteLinkResult result = new MessagesGetInviteLink(getAccessToken())
-                    .setPeerId(PEER_ID)
+            GroupsGetBannedResult result = new GroupsGetBanned(getAccessToken())
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -28,9 +26,8 @@ public class GetInviteLinkExample extends LongPollBot {
         }
     }
 
-    public void getInviteLinkAsync() {
-        CompletableFuture<MessagesGetInviteLinkResult> future = new MessagesGetInviteLink(getAccessToken())
-                .setPeerId(PEER_ID)
+    public void getBannedAsync() {
+        CompletableFuture<GroupsGetBannedResult> future = new GroupsGetBanned(getAccessToken())
                 .setGroupId(getGroupId())
                 .executeAsync();
 
@@ -50,8 +47,8 @@ public class GetInviteLinkExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetInviteLinkExample example = new GetInviteLinkExample();
-        example.getInviteLink();
-        example.getInviteLinkAsync();
+        GetBannedExample example = new GetBannedExample();
+        example.getBanned();
+        example.getBannedAsync();
     }
 }

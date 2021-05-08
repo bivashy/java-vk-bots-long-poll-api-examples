@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.board.BoardDeleteComment;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
 
     public void deleteBoardComment() {
         try {
-            GenericResult<Integer> result = new BoardDeleteComment(getAccessToken())
+            IntegerResult result = new BoardDeleteComment(getAccessToken())
                     .setTopicId(TOPIC_ID)
                     .setCommentId(COMMENT_ID)
                     .setGroupId(getGroupId())
@@ -31,7 +31,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
     }
 
     public void deleteBoardCommentAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new BoardDeleteComment(getAccessToken())
+        CompletableFuture<IntegerResult> future = new BoardDeleteComment(getAccessToken())
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .setGroupId(getGroupId())

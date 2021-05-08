@@ -4,9 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesGetConversationMembers;
-import api.longpoll.bots.model.response.ExtendedVkList;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetConversationMembersResponseItem;
+import api.longpoll.bots.model.response.messages.MessagesGetConversationMembersResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +16,7 @@ public class GetConversationsMembersExample extends LongPollBot {
 
     public void editMessage() {
         try {
-            GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>> result = new MessagesGetConversationMembers(getAccessToken())
+            MessagesGetConversationMembersResult result = new MessagesGetConversationMembers(getAccessToken())
                     .setPeerId(PEER_ID)
                     .execute();
 
@@ -30,7 +28,7 @@ public class GetConversationsMembersExample extends LongPollBot {
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<MessagesGetConversationMembersResponseItem>>> future = new MessagesGetConversationMembers(getAccessToken())
+        CompletableFuture<MessagesGetConversationMembersResult> future = new MessagesGetConversationMembers(getAccessToken())
                 .setPeerId(PEER_ID)
                 .executeAsync();
 

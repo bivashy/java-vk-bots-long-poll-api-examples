@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesMarkAsAnsweredConversation;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
 
     public void markAsAnsweredConversation() {
         try {
-            GenericResult<Integer> result = new MessagesMarkAsAnsweredConversation(getAccessToken())
+            IntegerResult result = new MessagesMarkAsAnsweredConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -29,7 +29,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
     }
 
     public void markAsAnsweredConversationAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesMarkAsAnsweredConversation(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesMarkAsAnsweredConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

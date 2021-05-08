@@ -4,7 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesEditChat;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class EditChatExample extends LongPollBot {
 
     public void editChat() {
         try {
-            GenericResult<Integer> result = new MessagesEditChat(getAccessToken())
+            IntegerResult result = new MessagesEditChat(getAccessToken())
                     .setChatId(CHAT_ID)
                     .setTitle("Title changed sync")
                     .execute();
@@ -29,7 +29,7 @@ public class EditChatExample extends LongPollBot {
     }
 
     public void editChatAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new MessagesEditChat(getAccessToken())
+        CompletableFuture<IntegerResult> future = new MessagesEditChat(getAccessToken())
                 .setChatId(CHAT_ID)
                 .setTitle("Title changed async")
                 .executeAsync();

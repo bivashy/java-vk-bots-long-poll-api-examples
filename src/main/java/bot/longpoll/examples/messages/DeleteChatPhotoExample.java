@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesDeleteChatPhoto;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesDeleteChatPhotoResponse;
+import api.longpoll.bots.model.response.messages.MessagesDeleteChatPhotoResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
 
     public void deleteChatPhoto() {
         try {
-            GenericResult<MessagesDeleteChatPhotoResponse> result = new MessagesDeleteChatPhoto(getAccessToken())
+            MessagesDeleteChatPhotoResult result = new MessagesDeleteChatPhoto(getAccessToken())
                     .setGroupId(getGroupId())
                     .setChatId(CHAT_ID)
                     .execute();
@@ -30,7 +29,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
     }
 
     public void deleteChatPhotoAsync() {
-        CompletableFuture<GenericResult<MessagesDeleteChatPhotoResponse>> future = new MessagesDeleteChatPhoto(getAccessToken())
+        CompletableFuture<MessagesDeleteChatPhotoResult> future = new MessagesDeleteChatPhoto(getAccessToken())
                 .setGroupId(getGroupId())
                 .setChatId(CHAT_ID)
                 .executeAsync();

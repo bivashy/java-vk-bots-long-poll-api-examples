@@ -5,6 +5,7 @@ import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.board.BoardRestoreComment;
 import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.IntegerResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
 
     public void restoreBoardComment() {
         try {
-            GenericResult<Integer> result = new BoardRestoreComment(getAccessToken())
+            IntegerResult result = new BoardRestoreComment(getAccessToken())
                     .setTopicId(TOPIC_ID)
                     .setCommentId(COMMENT_ID)
                     .setGroupId(getGroupId())
@@ -31,7 +32,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
     }
 
     public void restoreBoardCommentAsync() {
-        CompletableFuture<GenericResult<Integer>> future = new BoardRestoreComment(getAccessToken())
+        CompletableFuture<IntegerResult> future = new BoardRestoreComment(getAccessToken())
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .setGroupId(getGroupId())

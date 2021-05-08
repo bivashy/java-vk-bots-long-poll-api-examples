@@ -4,9 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesSearchConversations;
-import api.longpoll.bots.model.objects.basic.Conversation;
-import api.longpoll.bots.model.response.ExtendedVkList;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.messages.MessagesGetConversationsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +15,7 @@ public class SearchConversationsExample extends LongPollBot {
 
     public void searchConversations() {
         try {
-            GenericResult<ExtendedVkList<Conversation>> result = new MessagesSearchConversations(getAccessToken())
+            MessagesGetConversationsResult result = new MessagesSearchConversations(getAccessToken())
                     .setGroupId(getGroupId())
                     .setQ("java")
                     .execute();
@@ -30,7 +28,7 @@ public class SearchConversationsExample extends LongPollBot {
     }
 
     public void searchConversationsAsync() {
-        CompletableFuture<GenericResult<ExtendedVkList<Conversation>>> future = new MessagesSearchConversations(getAccessToken())
+        CompletableFuture<MessagesGetConversationsResult> future = new MessagesSearchConversations(getAccessToken())
                 .setGroupId(getGroupId())
                 .setQ("java")
                 .executeAsync();

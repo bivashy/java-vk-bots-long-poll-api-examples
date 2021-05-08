@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesDeleteConversation;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesDeleteConversationResponse;
+import api.longpoll.bots.model.response.messages.MessagesDeleteConversationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ public class DeleteConversationExample extends LongPollBot {
 
     public void deleteConversation() {
         try {
-            GenericResult<MessagesDeleteConversationResponse> result = new MessagesDeleteConversation(getAccessToken())
+            MessagesDeleteConversationResult result = new MessagesDeleteConversation(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(CHAT_ID)
                     .execute();
@@ -30,7 +29,7 @@ public class DeleteConversationExample extends LongPollBot {
     }
 
     public void deleteConversationAsync() {
-        CompletableFuture<GenericResult<MessagesDeleteConversationResponse>> future = new MessagesDeleteConversation(getAccessToken())
+        CompletableFuture<MessagesDeleteConversationResult> future = new MessagesDeleteConversation(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(CHAT_ID)
                 .executeAsync();

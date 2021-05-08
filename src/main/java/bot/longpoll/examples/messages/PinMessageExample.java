@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesPin;
-import api.longpoll.bots.model.objects.additional.PinnedMessage;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.messages.MessagesPinResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ public class PinMessageExample extends LongPollBot {
 
     public void pinMessage() {
         try {
-            GenericResult<PinnedMessage> result = new MessagesPin(getAccessToken())
+            MessagesPinResult result = new MessagesPin(getAccessToken())
                     .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                     .setPeerId(PEER_ID)
                     .execute();
@@ -31,7 +30,7 @@ public class PinMessageExample extends LongPollBot {
     }
 
     public void pinMessageAsync() {
-        CompletableFuture<GenericResult<PinnedMessage>> future = new MessagesPin(getAccessToken())
+        CompletableFuture<MessagesPinResult> future = new MessagesPin(getAccessToken())
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();

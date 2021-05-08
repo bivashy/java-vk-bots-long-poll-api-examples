@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesGetConversations;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetConversationsResponse;
+import api.longpoll.bots.model.response.messages.MessagesGetConversationsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ public class GetConversationsExample extends LongPollBot {
 
     public void getConversations() {
         try {
-            GenericResult<MessagesGetConversationsResponse> result = new MessagesGetConversations(getAccessToken())
+            MessagesGetConversationsResult result = new MessagesGetConversations(getAccessToken())
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -28,7 +27,7 @@ public class GetConversationsExample extends LongPollBot {
     }
 
     public void getConversationsAsync() {
-        CompletableFuture<GenericResult<MessagesGetConversationsResponse>> future = new MessagesGetConversations(getAccessToken())
+        CompletableFuture<MessagesGetConversationsResult> future = new MessagesGetConversations(getAccessToken())
                 .setGroupId(getGroupId())
                 .executeAsync();
 

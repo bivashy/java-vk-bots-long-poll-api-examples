@@ -4,13 +4,12 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesDelete;
-import api.longpoll.bots.model.response.GenericResult;
+import api.longpoll.bots.model.response.messages.MessagesDeleteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class DeleteMessageExample extends LongPollBot {
@@ -19,7 +18,7 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessage() {
         try {
-            GenericResult<Map<String, Integer>> result = new MessagesDelete(getAccessToken())
+            MessagesDeleteResult result = new MessagesDelete(getAccessToken())
                     .setDeleteForAll(true)
                     .setMessageIds(MESSAGE_IDS)
                     .setGroupId(getGroupId())
@@ -33,7 +32,7 @@ public class DeleteMessageExample extends LongPollBot {
     }
 
     public void deleteMessageAsync() {
-        CompletableFuture<GenericResult<Map<String, Integer>>> future = new MessagesDelete(getAccessToken())
+        CompletableFuture<MessagesDeleteResult> future = new MessagesDelete(getAccessToken())
                 .setDeleteForAll(true)
                 .setMessageIds(MESSAGE_IDS)
                 .setGroupId(getGroupId())

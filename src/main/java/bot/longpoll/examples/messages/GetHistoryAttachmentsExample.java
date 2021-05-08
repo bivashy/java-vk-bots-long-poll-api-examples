@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesGetHistoryAttachments;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetHistoryAttachmentsResponse;
+import api.longpoll.bots.model.response.messages.MessagesGetHistoryAttachmentsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachments() {
         try {
-            GenericResult<MessagesGetHistoryAttachmentsResponse> result = new MessagesGetHistoryAttachments(getAccessToken())
+            MessagesGetHistoryAttachmentsResult result = new MessagesGetHistoryAttachments(getAccessToken())
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setMediaType("photo")
@@ -31,7 +30,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
     }
 
     public void getHistoryAttachmentsAsync() {
-        CompletableFuture<GenericResult<MessagesGetHistoryAttachmentsResponse>> future = new MessagesGetHistoryAttachments(getAccessToken())
+        CompletableFuture<MessagesGetHistoryAttachmentsResult> future = new MessagesGetHistoryAttachments(getAccessToken())
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")

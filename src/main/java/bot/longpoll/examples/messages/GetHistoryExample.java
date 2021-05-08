@@ -4,8 +4,7 @@ import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesGetHistory;
-import api.longpoll.bots.model.response.GenericResult;
-import api.longpoll.bots.model.response.messages.MessagesGetHistoryResponse;
+import api.longpoll.bots.model.response.messages.MessagesGetHistoryResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ public class GetHistoryExample extends LongPollBot {
 
     public void getHistory() {
         try {
-            GenericResult<MessagesGetHistoryResponse> result = new MessagesGetHistory(getAccessToken())
+            MessagesGetHistoryResult result = new MessagesGetHistory(getAccessToken())
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -30,7 +29,7 @@ public class GetHistoryExample extends LongPollBot {
     }
 
     public void getHistoryAsync() {
-        CompletableFuture<GenericResult<MessagesGetHistoryResponse>> future = new MessagesGetHistory(getAccessToken())
+        CompletableFuture<MessagesGetHistoryResult> future = new MessagesGetHistory(getAccessToken())
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();
