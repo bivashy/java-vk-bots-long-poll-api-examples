@@ -1,3 +1,4 @@
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/LICENSE)
 # Java VK Bots Long Poll API Examples
 
 Checkout the usage of [Java VK Bots Long Poll API](https://github.com/yvasyliev/java-vk-bots-long-poll-api).
