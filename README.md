@@ -21,7 +21,7 @@ Checkout the usage of [Java VK Bots Long Poll API](https://github.com/yvasyliev/
 * [Edit message](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/EditMessageExample.java)
 * [Get conversations by ID](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetConversationsByIdExample.java)
 * [Get conversations](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetConversationsExample.java)
-* [Get conversation members](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetConversationsMembersExample.java)
+* [Get conversation members](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetConversationMembersExample.java)
 * [Get history attachments](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetHistoryAttachmentsExample.java)
 * [Get history](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetHistoryExample.java)
 * [Get invite link](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/GetInviteLinkExample.java)

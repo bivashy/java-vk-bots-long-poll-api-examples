@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
 
-public class GetConversationsMembersExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetConversationsMembersExample.class);
+public class GetConversationMembersExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(GetConversationMembersExample.class);
     private static final int PEER_ID = 2000000008;
 
     public void editMessage() {
@@ -48,7 +48,7 @@ public class GetConversationsMembersExample extends LongPollBot {
     }
 
     public static void main(String[] args) {
-        GetConversationsMembersExample example = new GetConversationsMembersExample();
+        GetConversationMembersExample example = new GetConversationMembersExample();
         example.editMessage();
         example.editMessageAsync();
     }
