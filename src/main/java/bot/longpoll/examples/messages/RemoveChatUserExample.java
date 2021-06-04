@@ -1,7 +1,6 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesRemoveChatUser;
 import api.longpoll.bots.model.response.IntegerResult;
@@ -24,7 +23,7 @@ public class RemoveChatUserExample extends LongPollBot {
 
             System.out.println("Sync result: " + result);
 
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }

@@ -1,7 +1,6 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.utils.UtilsGetShortLink;
 import api.longpoll.bots.model.response.utils.UtilsGetShortLinkResult;
@@ -22,7 +21,7 @@ public class GetShortLinkExample extends LongPollBot {
 
             System.out.println("Sync result: " + result);
 
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }

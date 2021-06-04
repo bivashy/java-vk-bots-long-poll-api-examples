@@ -2,7 +2,6 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.BotsLongPoll;
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.messages.MessagesSend;
 import api.longpoll.bots.methods.messages.MessagesSendEventAnswer;
@@ -50,7 +49,7 @@ public class ButtonsExample extends LongPollBot {
                     .execute();
 
             System.out.println("Send buttons result: " + result);
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -78,7 +77,7 @@ public class ButtonsExample extends LongPollBot {
                     .execute();
 
             System.out.println("Send carousel buttons result: " + result);
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -99,7 +98,7 @@ public class ButtonsExample extends LongPollBot {
                     .execute();
 
             System.out.println("Send callback button result: " + result);
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -116,7 +115,7 @@ public class ButtonsExample extends LongPollBot {
 
             System.out.println("Send event answer result: " + result);
             BOTS_LONG_POLL.stop();
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -139,7 +138,7 @@ public class ButtonsExample extends LongPollBot {
             example.sendCallbackButton();
             BOTS_LONG_POLL = new BotsLongPoll(example);
             BOTS_LONG_POLL.run();
-        } catch (BotsLongPollException | BotsLongPollAPIException e) {
+        } catch (BotsLongPollException e) {
             log.error("Something went wrong...", e);
         }
     }

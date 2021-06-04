@@ -1,11 +1,10 @@
 package bot.longpoll.examples.doc;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.docs.DocsGetWallUploadServer;
 import api.longpoll.bots.methods.docs.DocsSave;
-import api.longpoll.bots.methods.other.UploadDoc;
+import api.longpoll.bots.methods.upload.UploadDoc;
 import api.longpoll.bots.model.response.docs.DocsGetUploadServerResult;
 import api.longpoll.bots.model.response.docs.DocsSaveResult;
 import api.longpoll.bots.model.response.other.UploadDocResult;
@@ -35,7 +34,7 @@ public class UploadWallDocument extends LongPollBot {
 
             System.out.println("Sync result: " + result);
 
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }

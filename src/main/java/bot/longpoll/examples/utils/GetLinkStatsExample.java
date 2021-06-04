@@ -1,7 +1,6 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollAPIException;
 import api.longpoll.bots.exceptions.BotsLongPollException;
 import api.longpoll.bots.methods.utils.UtilsGetLinkStats;
 import api.longpoll.bots.model.response.utils.UtilsGetLinkStatsResult;
@@ -23,7 +22,7 @@ public class GetLinkStatsExample extends LongPollBot {
 
             System.out.println("Sync result: " + result);
 
-        } catch (BotsLongPollAPIException | BotsLongPollException e) {
+        } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
     }
