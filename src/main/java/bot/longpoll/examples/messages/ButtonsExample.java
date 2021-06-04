@@ -20,7 +20,7 @@ import java.util.List;
 public class ButtonsExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(ButtonsExample.class);
     private static final Integer PEER_ID = 918650328;
-    private static BotsLongPoll BOTS_LONG_POLL;
+    private static BotsLongPoll botsLongPoll;
 
     public void sendButtons() {
         try {
@@ -114,7 +114,7 @@ public class ButtonsExample extends LongPollBot {
                     .execute();
 
             System.out.println("Send event answer result: " + result);
-            BOTS_LONG_POLL.stop();
+            botsLongPoll.stop();
         } catch (BotsLongPollException e) {
             log.error("Error during execution.", e);
         }
@@ -136,8 +136,8 @@ public class ButtonsExample extends LongPollBot {
             example.sendButtons();
             example.sendCarouselButtons();
             example.sendCallbackButton();
-            BOTS_LONG_POLL = new BotsLongPoll(example);
-            BOTS_LONG_POLL.run();
+            botsLongPoll = new BotsLongPoll(example);
+            botsLongPoll.run();
         } catch (BotsLongPollException e) {
             log.error("Something went wrong...", e);
         }
