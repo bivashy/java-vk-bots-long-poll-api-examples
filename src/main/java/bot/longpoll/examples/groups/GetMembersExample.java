@@ -55,6 +55,6 @@ public class GetMembersExample extends LongPollBot {
     public static void main(String[] args) {
         GetMembersExample example = new GetMembersExample();
         example.getMembers();
-        //example.getMembersAsync();
+        example.getMembersAsync();
     }
 }
