@@ -7,20 +7,20 @@ import api.longpoll.bots.model.response.messages.MessagesDeleteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class DeleteMessageExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(DeleteMessageExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(726);
+    private static final int PEER_ID = 2000000008;
+    private static final int CONVERSATION_MESSAGE_ID = 37;
 
     public void deleteMessage() {
         try {
             MessagesDeleteResult result = new MessagesDelete(getAccessToken())
-                    .setDeleteForAll(true)
-                    .setMessageIds(MESSAGE_IDS)
                     .setGroupId(getGroupId())
+                    .setPeerId(PEER_ID)
+                    .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
+                    .setDeleteForAll(true)
                     .execute();
 
             System.out.println("Sync result: " + result);
@@ -32,9 +32,10 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessageAsync() {
         CompletableFuture<MessagesDeleteResult> future = new MessagesDelete(getAccessToken())
-                .setDeleteForAll(true)
-                .setMessageIds(MESSAGE_IDS)
                 .setGroupId(getGroupId())
+                .setPeerId(PEER_ID)
+                .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
+                .setDeleteForAll(true)
                 .executeAsync();
 
         // Main thread is free...
