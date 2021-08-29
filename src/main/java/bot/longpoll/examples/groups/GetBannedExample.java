@@ -1,9 +1,8 @@
 package bot.longpoll.examples.groups;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.groups.GroupsGetBanned;
-import api.longpoll.bots.model.response.groups.GroupsGetBannedResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.groups.GetBanned;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,25 +13,25 @@ public class GetBannedExample extends LongPollBot {
 
     public void getBanned() {
         try {
-            GroupsGetBannedResult result = new GroupsGetBanned(getAccessToken())
+            GetBanned.Response response = vkBotsApi.groups().getBanned()
                     .setGroupId(getGroupId())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getBannedAsync() {
-        CompletableFuture<GroupsGetBannedResult> future = new GroupsGetBanned(getAccessToken())
+        CompletableFuture<GetBanned.Response> future = vkBotsApi.groups().getBanned()
                 .setGroupId(getGroupId())
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

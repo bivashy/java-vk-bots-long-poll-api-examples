@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesDelete;
-import api.longpoll.bots.model.response.messages.MessagesDeleteResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.messages.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,22 +15,22 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessage() {
         try {
-            MessagesDeleteResult result = new MessagesDelete(getAccessToken())
+            Delete.Response response = vkBotsApi.messages().delete()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                     .setDeleteForAll(true)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void deleteMessageAsync() {
-        CompletableFuture<MessagesDeleteResult> future = new MessagesDelete(getAccessToken())
+        CompletableFuture<Delete.Response> future = vkBotsApi.messages().delete()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
@@ -40,7 +39,7 @@ public class DeleteMessageExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

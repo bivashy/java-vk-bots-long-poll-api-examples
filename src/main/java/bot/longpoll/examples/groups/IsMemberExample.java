@@ -1,9 +1,8 @@
 package bot.longpoll.examples.groups;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.groups.GroupsIsMember;
-import api.longpoll.bots.model.response.groups.GroupsIsMemberResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.groups.IsMember;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +14,27 @@ public class IsMemberExample extends LongPollBot {
 
     public void isMember() {
         try {
-            GroupsIsMemberResult result = new GroupsIsMember(getAccessToken())
-                    .setGroupId(String.valueOf(getGroupId()))
+            IsMember.Response response = vkBotsApi.groups().isMember()
+                    .setGroupId(getGroupId())
                     .setUserId(USER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void isMemberAsync() {
-        CompletableFuture<GroupsIsMemberResult> future = new GroupsIsMember(getAccessToken())
-                .setGroupId(String.valueOf(getGroupId()))
+        CompletableFuture<IsMember.Response> future = vkBotsApi.groups().isMember()
+                .setGroupId(getGroupId())
                 .setUserId(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

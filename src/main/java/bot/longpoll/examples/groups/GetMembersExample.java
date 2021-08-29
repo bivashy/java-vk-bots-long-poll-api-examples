@@ -1,13 +1,11 @@
 package bot.longpoll.examples.groups;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.groups.GroupsGetMembers;
-import api.longpoll.bots.model.response.groups.GroupsGetMembersResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.groups.GetMembers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 public class GetMembersExample extends LongPollBot {
@@ -15,31 +13,24 @@ public class GetMembersExample extends LongPollBot {
 
     public void getMembers() {
         try {
-            GroupsGetMembersResult result = new GroupsGetMembers(getAccessToken())
+            GetMembers.Response response = vkBotsApi.groups().getMembers()
                     .setGroupId(String.valueOf(getGroupId()))
                     .execute();
 
-            System.out.println("Sync result: " + result);
-            result = new GroupsGetMembers(getAccessToken())
-                    .setGroupId(String.valueOf(getGroupId()))
-                    .setFields(Collections.singletonList("bdate"))
-                    .execute();
-
-            System.out.println("Sync result: " + result);
-
-        } catch (BotsLongPollException e) {
+            System.out.println("Sync response: " + response);
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getMembersAsync() {
-        CompletableFuture<GroupsGetMembersResult> future = new GroupsGetMembers(getAccessToken())
+        CompletableFuture<GetMembers.Response> future = vkBotsApi.groups().getMembers()
                 .setGroupId(String.valueOf(getGroupId()))
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

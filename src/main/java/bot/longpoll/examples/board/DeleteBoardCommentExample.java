@@ -1,9 +1,8 @@
 package bot.longpoll.examples.board;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.board.BoardDeleteComment;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,21 +15,21 @@ public class DeleteBoardCommentExample extends LongPollBot {
 
     public void deleteBoardComment() {
         try {
-            IntegerResult result = new BoardDeleteComment(getAccessToken())
+            IntegerResponse response = vkBotsApi.board().deleteComment()
                     .setTopicId(TOPIC_ID)
                     .setCommentId(COMMENT_ID)
                     .setGroupId(getGroupId())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void deleteBoardCommentAsync() {
-        CompletableFuture<IntegerResult> future = new BoardDeleteComment(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.board().deleteComment()
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .setGroupId(getGroupId())
@@ -38,7 +37,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetInviteLink;
-import api.longpoll.bots.model.response.messages.MessagesGetInviteLinkResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.messages.GetInviteLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +14,27 @@ public class GetInviteLinkExample extends LongPollBot {
 
     public void getInviteLink() {
         try {
-            MessagesGetInviteLinkResult result = new MessagesGetInviteLink(getAccessToken())
+            GetInviteLink.Response response = vkBotsApi.messages().getInviteLink()
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getInviteLinkAsync() {
-        CompletableFuture<MessagesGetInviteLinkResult> future = new MessagesGetInviteLink(getAccessToken())
+        CompletableFuture<GetInviteLink.Response> future = vkBotsApi.messages().getInviteLink()
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

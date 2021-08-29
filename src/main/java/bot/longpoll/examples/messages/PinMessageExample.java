@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesPin;
-import api.longpoll.bots.model.response.messages.MessagesPinResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.messages.Pin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,27 +15,27 @@ public class PinMessageExample extends LongPollBot {
 
     public void pinMessage() {
         try {
-            MessagesPinResult result = new MessagesPin(getAccessToken())
+            Pin.Response response = vkBotsApi.messages().pin()
                     .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                     .setPeerId(PEER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void pinMessageAsync() {
-        CompletableFuture<MessagesPinResult> future = new MessagesPin(getAccessToken())
+        CompletableFuture<Pin.Response> future = vkBotsApi.messages().pin()
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

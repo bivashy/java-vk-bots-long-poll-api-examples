@@ -1,9 +1,9 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesSend;
-import api.longpoll.bots.model.response.messages.MessagesSendResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.http.params.MessagePhoto;
+import api.longpoll.bots.methods.impl.messages.Send;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,29 +17,29 @@ public class SendMessageExample extends LongPollBot {
 
     public void sendMessage() {
         try {
-            MessagesSendResult result = new MessagesSend(getAccessToken())
+            Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
                     .setMessage("Sent you photo:")
-                    .addPhoto(PHOTO)
+                    .setAttachments(new MessagePhoto(getAccessToken(), PEER_ID, PHOTO))
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void sendMessageAsync() {
-        CompletableFuture<MessagesSendResult> future = new MessagesSend(getAccessToken())
+        CompletableFuture<Send.Response> future = vkBotsApi.messages().send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you photo async:")
-                .addPhoto(PHOTO)
+                .setAttachments(new MessagePhoto(getAccessToken(), PEER_ID, PHOTO))
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

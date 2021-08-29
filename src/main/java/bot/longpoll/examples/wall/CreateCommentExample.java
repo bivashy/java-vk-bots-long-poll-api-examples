@@ -1,9 +1,8 @@
 package bot.longpoll.examples.wall;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.wall.WallCreateComment;
-import api.longpoll.bots.model.response.wall.WallCreateCommentResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.wall.CreateComment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,21 +14,21 @@ public class CreateCommentExample extends LongPollBot {
 
     public void createComment() {
         try {
-            WallCreateCommentResult result = new WallCreateComment(getAccessToken())
+            CreateComment.Response response = vkBotsApi.wall().createComment()
                     .setPostId(POST_ID)
                     .setOwnerId(-getGroupId())
                     .setMessage("Sync comment")
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void createCommentAsync() {
-        CompletableFuture<WallCreateCommentResult> future = new WallCreateComment(getAccessToken())
+        CompletableFuture<CreateComment.Response> future = vkBotsApi.wall().createComment()
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .setMessage("Async comment")
@@ -37,7 +36,7 @@ public class CreateCommentExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

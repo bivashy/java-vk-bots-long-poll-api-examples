@@ -2,15 +2,13 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.BotsLongPoll;
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesSend;
-import api.longpoll.bots.methods.messages.MessagesSendEventAnswer;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.messages.Send;
 import api.longpoll.bots.model.events.messages.MessageEvent;
 import api.longpoll.bots.model.objects.additional.Button;
 import api.longpoll.bots.model.objects.additional.Keyboard;
 import api.longpoll.bots.model.objects.additional.Template;
-import api.longpoll.bots.model.response.IntegerResult;
-import api.longpoll.bots.model.response.messages.MessagesSendResult;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +41,14 @@ public class ButtonsExample extends LongPollBot {
 
             Keyboard keyboard = new Keyboard().setButtons(Arrays.asList(row1, row2));
 
-            MessagesSendResult result = new MessagesSend(getAccessToken())
+            Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
                     .setMessage("Buttons example")
                     .setKeyboard(keyboard)
                     .execute();
 
-            System.out.println("Send buttons result: " + result);
-        } catch (BotsLongPollException e) {
+            System.out.println("Send buttons response: " + response);
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -71,14 +69,14 @@ public class ButtonsExample extends LongPollBot {
 
             Template.Carousel carousel = new Template.Carousel().setElements(Arrays.asList(element1, element2));
 
-            MessagesSendResult result = new MessagesSend(getAccessToken())
+            Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
                     .setMessage("Carousel example")
                     .setTemplate(carousel)
                     .execute();
 
-            System.out.println("Send carousel buttons result: " + result);
-        } catch (BotsLongPollException e) {
+            System.out.println("Send carousel buttons response: " + response);
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -92,14 +90,14 @@ public class ButtonsExample extends LongPollBot {
                     .setButtons(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            MessagesSendResult result = new MessagesSend(getAccessToken())
+            Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
                     .setMessage("A Callback button example")
                     .setKeyboard(keyboard)
                     .execute();
 
-            System.out.println("Send callback button result: " + result);
-        } catch (BotsLongPollException e) {
+            System.out.println("Send callback button response: " + response);
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -107,16 +105,16 @@ public class ButtonsExample extends LongPollBot {
     @Override
     public void onMessageEvent(MessageEvent messageEvent) {
         try {
-            IntegerResult result = new MessagesSendEventAnswer(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().sendEventAnswer()
                     .setUserId(messageEvent.getUserId())
                     .setPeerId(messageEvent.getPeerId())
                     .setEventId(messageEvent.getEventId())
                     .setEventData(new Button.ShowSnackbar().setText("Hi there!"))
                     .execute();
 
-            System.out.println("Send event answer result: " + result);
+            System.out.println("Send event answer response: " + response);
             botsLongPoll.stop();
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -139,7 +137,7 @@ public class ButtonsExample extends LongPollBot {
             example.sendCallbackButton();
             botsLongPoll = new BotsLongPoll(example);
             botsLongPoll.run();
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Something went wrong...", e);
         }
     }

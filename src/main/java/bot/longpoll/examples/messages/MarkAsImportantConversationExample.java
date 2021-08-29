@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesMarkAsImportantConversation;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +14,27 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversation() {
         try {
-            IntegerResult result = new MessagesMarkAsImportantConversation(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().markAsImportantConversation()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void markAsImportantConversationAsync() {
-        CompletableFuture<IntegerResult> future = new MessagesMarkAsImportantConversation(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().markAsImportantConversation()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

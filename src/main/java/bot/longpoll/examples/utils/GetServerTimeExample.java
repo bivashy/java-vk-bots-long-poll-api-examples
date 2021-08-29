@@ -1,9 +1,8 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.utils.UtilsGetServerTime;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,23 +13,23 @@ public class GetServerTimeExample extends LongPollBot {
 
     public void getServerTime() {
         try {
-            IntegerResult result = new UtilsGetServerTime(getAccessToken())
+            IntegerResponse response = vkBotsApi.utils().getServerTime()
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getServerTimeAsync() {
-        CompletableFuture<IntegerResult> future = new UtilsGetServerTime(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.utils().getServerTime()
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

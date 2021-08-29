@@ -1,43 +1,40 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesCreateChat;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class CreateChatExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(CreateChatExample.class);
-    private static final List<Integer> USER_IDS = Collections.singletonList(918650328);
+    private static final int USER_ID = 918650328;
 
     public void createChat() {
         try {
-            IntegerResult result = new MessagesCreateChat(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().createChat()
                     .setTitle("New Chat")
-                    .setUserIds(USER_IDS)
+                    .setUserIds(USER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void createChatAsync() {
-        CompletableFuture<IntegerResult> future = new MessagesCreateChat(getAccessToken())
-                .setTitle("New Char Async")
-                .setUserIds(USER_IDS)
+        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().createChat()
+                .setTitle("New Chat Async")
+                .setUserIds(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

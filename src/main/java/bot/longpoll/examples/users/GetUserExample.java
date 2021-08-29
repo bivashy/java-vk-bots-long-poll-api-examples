@@ -1,41 +1,38 @@
 package bot.longpoll.examples.users;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.users.UsersGet;
-import api.longpoll.bots.model.response.users.UsersGetResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.users.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class GetUserExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(GetUserExample.class);
-    private static final List<String> USER_IDS = Collections.singletonList("918650328");
+    private static final int USER_ID = 918650328;
 
     public void getUser() {
         try {
-            UsersGetResult result = new UsersGet(getAccessToken())
-                    .setUserIds(USER_IDS)
+            Get.Response response = vkBotsApi.users().get()
+                    .setUserIds(USER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getUserAsync() {
-        CompletableFuture<UsersGetResult> future = new UsersGet(getAccessToken())
-                .setUserIds(USER_IDS)
+        CompletableFuture<Get.Response> future = vkBotsApi.users().get()
+                .setUserIds(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

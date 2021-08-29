@@ -1,9 +1,8 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.utils.UtilsCheckLink;
-import api.longpoll.bots.model.response.utils.UtilsCheckLinkResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.utils.CheckLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,25 +14,25 @@ public class CheckLinkExample extends LongPollBot {
 
     public void checkLink() {
         try {
-            UtilsCheckLinkResult result = new UtilsCheckLink(getAccessToken())
+            CheckLink.UtilsCheckLinkResult response = vkBotsApi.utils().checkLink()
                     .setUrl(URL)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void checkLinkAsync() {
-        CompletableFuture<UtilsCheckLinkResult> future = new UtilsCheckLink(getAccessToken())
+        CompletableFuture<CheckLink.UtilsCheckLinkResult> future = vkBotsApi.utils().checkLink()
                 .setUrl(URL)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

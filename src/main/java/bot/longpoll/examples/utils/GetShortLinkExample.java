@@ -1,9 +1,8 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.utils.UtilsGetShortLink;
-import api.longpoll.bots.model.response.utils.UtilsGetShortLinkResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.utils.GetShortLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,25 +14,25 @@ public class GetShortLinkExample extends LongPollBot {
 
     public void getShortLink() {
         try {
-            UtilsGetShortLinkResult result = new UtilsGetShortLink(getAccessToken())
+            GetShortLink.Response response = vkBotsApi.utils().getShortLink()
                     .setUrl(URL)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getShortLinkAsync() {
-        CompletableFuture<UtilsGetShortLinkResult> future = new UtilsGetShortLink(getAccessToken())
+        CompletableFuture<GetShortLink.Response> future = vkBotsApi.utils().getShortLink()
                 .setUrl(URL)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

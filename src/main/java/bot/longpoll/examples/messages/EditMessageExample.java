@@ -1,9 +1,9 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesEdit;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.http.params.MessageDoc;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,31 +17,31 @@ public class EditMessageExample extends LongPollBot {
 
     public void editMessage() {
         try {
-            IntegerResult result = new MessagesEdit(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().edit()
                     .setPeerId(PEER_ID)
                     .setMessageId(699)
                     .setMessage("Corrected message")
-                    .addDoc(GIF)
+                    .setAttachments(new MessageDoc(getAccessToken(), PEER_ID, GIF))
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void editMessageAsync() {
-        CompletableFuture<IntegerResult> future = new MessagesEdit(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().edit()
                 .setPeerId(PEER_ID)
                 .setMessageId(700)
                 .setMessage("Corrected message")
-                .addDoc(GIF)
+                .setAttachments(new MessageDoc(getAccessToken(), PEER_ID, GIF))
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

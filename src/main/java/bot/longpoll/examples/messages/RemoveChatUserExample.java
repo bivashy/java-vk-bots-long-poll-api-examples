@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesRemoveChatUser;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,27 +15,27 @@ public class RemoveChatUserExample extends LongPollBot {
 
     public void removeChatUser() {
         try {
-            IntegerResult result = new MessagesRemoveChatUser(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().removeChatUser()
                     .setChatId(CHAT_ID)
                     .setUserId(USER_ID)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void removeChatUserAsync() {
-        CompletableFuture<IntegerResult> future = new MessagesRemoveChatUser(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().removeChatUser()
                 .setChatId(CHAT_ID)
                 .setUserId(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

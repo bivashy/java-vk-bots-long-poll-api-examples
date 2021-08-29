@@ -1,9 +1,8 @@
 package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.utils.UtilsResolveScreenName;
-import api.longpoll.bots.model.response.utils.UtilsResolveScreenNameResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.utils.ResolveScreenName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,25 +14,25 @@ public class ResolveScreenNameExample extends LongPollBot {
 
     public void resolveScreenName() {
         try {
-            UtilsResolveScreenNameResult result = new UtilsResolveScreenName(getAccessToken())
+            ResolveScreenName.Response response = vkBotsApi.utils().resolveScreenName()
                     .setScreenName(SCREEN_NAME)
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void resolveScreenNameAsync() {
-        CompletableFuture<UtilsResolveScreenNameResult> future = new UtilsResolveScreenName(getAccessToken())
+        CompletableFuture<ResolveScreenName.Response> future = vkBotsApi.utils().resolveScreenName()
                 .setScreenName(SCREEN_NAME)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

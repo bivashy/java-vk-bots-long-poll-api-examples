@@ -1,13 +1,10 @@
 package bot.longpoll.examples.doc;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.docs.DocsGetWallUploadServer;
-import api.longpoll.bots.methods.docs.DocsSave;
-import api.longpoll.bots.methods.upload.UploadDoc;
-import api.longpoll.bots.model.response.docs.DocsGetUploadServerResult;
-import api.longpoll.bots.model.response.docs.DocsSaveResult;
-import api.longpoll.bots.model.response.other.UploadDocResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.docs.GetWallUploadServer;
+import api.longpoll.bots.methods.impl.docs.Save;
+import api.longpoll.bots.methods.impl.upload.UploadDoc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,24 +14,24 @@ public class UploadWallDocument extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(UploadWallDocument.class);
     private static final File PHOTO = new File("static/smiling_cat.png");
 
-    public void sendMessage() {
+    public void uploadWallDoc() {
         try {
-            DocsGetUploadServerResult docsGetUploadServerResult = new DocsGetWallUploadServer(getAccessToken())
+            GetWallUploadServer.Response wallUploadServer = vkBotsApi.docs().getWallUploadServer()
                     .setGroupId(getGroupId())
                     .execute();
 
-            UploadDocResult uploadDocResult = new UploadDoc()
-                    .setUploadUrl(docsGetUploadServerResult.getResponse().getUploadUrl())
+            UploadDoc.Response uploadDoc = new UploadDoc()
+                    .setUploadUrl(wallUploadServer.getResponseObject().getUploadUrl())
                     .setFile(PHOTO)
                     .execute();
 
-            DocsSaveResult result = new DocsSave(getAccessToken())
-                    .setFile(uploadDocResult.getFile())
+            Save.Response response = vkBotsApi.docs().save()
+                    .setFile(uploadDoc.getFile())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
@@ -51,6 +48,6 @@ public class UploadWallDocument extends LongPollBot {
 
     public static void main(String[] args) {
         UploadWallDocument example = new UploadWallDocument();
-        example.sendMessage();
+        example.uploadWallDoc();
     }
 }

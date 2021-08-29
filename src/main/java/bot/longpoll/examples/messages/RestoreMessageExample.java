@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesRestore;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +14,27 @@ public class RestoreMessageExample extends LongPollBot {
 
     public void restoreMessage() {
         try {
-            IntegerResult result = new MessagesRestore(getAccessToken())
+            IntegerResponse response = vkBotsApi.messages().restore()
                     .setMessageId(MESSAGE_ID)
                     .setGroupId(getGroupId())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void restoreMessageAsync() {
-        CompletableFuture<IntegerResult> future = new MessagesRestore(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().restore()
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

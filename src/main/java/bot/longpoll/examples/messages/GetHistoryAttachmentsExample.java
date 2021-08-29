@@ -1,9 +1,8 @@
 package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.messages.MessagesGetHistoryAttachments;
-import api.longpoll.bots.model.response.messages.MessagesGetHistoryAttachmentsResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.methods.impl.messages.GetHistoryAttachments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,21 +14,21 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachments() {
         try {
-            MessagesGetHistoryAttachmentsResult result = new MessagesGetHistoryAttachments(getAccessToken())
+            GetHistoryAttachments.Response response = vkBotsApi.messages().getHistoryAttachments()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setMediaType("photo")
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void getHistoryAttachmentsAsync() {
-        CompletableFuture<MessagesGetHistoryAttachmentsResult> future = new MessagesGetHistoryAttachments(getAccessToken())
+        CompletableFuture<GetHistoryAttachments.Response> future = vkBotsApi.messages().getHistoryAttachments()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
@@ -37,7 +36,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override

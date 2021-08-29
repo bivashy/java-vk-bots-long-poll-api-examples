@@ -1,9 +1,8 @@
 package bot.longpoll.examples.wall;
 
 import api.longpoll.bots.LongPollBot;
-import api.longpoll.bots.exceptions.BotsLongPollException;
-import api.longpoll.bots.methods.wall.WallOpenComments;
-import api.longpoll.bots.model.response.IntegerResult;
+import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +14,27 @@ public class OpenCommentsExample extends LongPollBot {
 
     public void openComments() {
         try {
-            IntegerResult result = new WallOpenComments(getAccessToken())
+            IntegerResponse response = vkBotsApi.wall().openComments()
                     .setPostId(POST_ID)
                     .setOwnerId(-getGroupId())
                     .execute();
 
-            System.out.println("Sync result: " + result);
+            System.out.println("Sync response: " + response);
 
-        } catch (BotsLongPollException e) {
+        } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
     }
 
     public void openCommentsAsync() {
-        CompletableFuture<IntegerResult> future = new WallOpenComments(getAccessToken())
+        CompletableFuture<IntegerResponse> future = vkBotsApi.wall().openComments()
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async result: " + future.join());
+        System.out.println("Async response: " + future.join());
     }
 
     @Override
