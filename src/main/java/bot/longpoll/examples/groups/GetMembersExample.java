@@ -14,7 +14,7 @@ public class GetMembersExample extends LongPollBot {
     public void getMembers() {
         try {
             GetMembers.Response response = vkBotsApi.groups().getMembers()
-                    .setGroupId(String.valueOf(getGroupId()))
+                    .setGroupId(getGroupId())
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -25,7 +25,7 @@ public class GetMembersExample extends LongPollBot {
 
     public void getMembersAsync() {
         CompletableFuture<GetMembers.Response> future = vkBotsApi.groups().getMembers()
-                .setGroupId(String.valueOf(getGroupId()))
+                .setGroupId(getGroupId())
                 .executeAsync();
 
         // Main thread is free...
