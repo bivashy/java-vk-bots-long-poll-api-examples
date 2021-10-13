@@ -2,6 +2,7 @@ package bot.longpoll.examples.wall;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
+import api.longpoll.bots.http.params.BaseAttachable;
 import api.longpoll.bots.methods.impl.wall.CreateComment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 public class CreateCommentExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(CreateCommentExample.class);
     private static final int POST_ID = 9;
+    private static final int MEDIA_ID = 457239025;
 
     public void createComment() {
         try {
@@ -18,6 +20,7 @@ public class CreateCommentExample extends LongPollBot {
                     .setPostId(POST_ID)
                     .setOwnerId(-getGroupId())
                     .setMessage("Sync comment")
+                    .setAttachments(new BaseAttachable("photo", -getGroupId(), MEDIA_ID))
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -32,6 +35,7 @@ public class CreateCommentExample extends LongPollBot {
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .setMessage("Async comment")
+                .setAttachments(new BaseAttachable("photo", -getGroupId(), MEDIA_ID))
                 .executeAsync();
 
         // Main thread is free...
