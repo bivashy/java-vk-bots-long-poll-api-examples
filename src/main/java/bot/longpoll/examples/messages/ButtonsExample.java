@@ -4,6 +4,9 @@ import api.longpoll.bots.BotsLongPoll;
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
 import api.longpoll.bots.methods.impl.messages.Send;
+import api.longpoll.bots.methods.impl.photos.GetMessagesUploadServer;
+import api.longpoll.bots.methods.impl.photos.SaveMessagesPhoto;
+import api.longpoll.bots.methods.impl.upload.UploadPhoto;
 import api.longpoll.bots.model.events.messages.MessageEvent;
 import api.longpoll.bots.model.objects.additional.EventData;
 import api.longpoll.bots.model.objects.additional.Keyboard;
@@ -22,6 +25,7 @@ import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,42 +37,46 @@ public class ButtonsExample extends LongPollBot {
 
     public void sendButtons() {
         try {
-            JsonObject positiveButtonPayload = new JsonObject();
-            positiveButtonPayload.addProperty("button", "positive");
-            Button positiveButton = new TextButton(Button.Color.POSITIVE, new TextButton.Action(
-                    "Positive button",
-                    positiveButtonPayload
+            JsonObject payload = new JsonObject();
+            payload.addProperty("order", "number 9");
+            payload.addProperty("quantity", 2);
+            Button number9s = new TextButton(Button.Color.POSITIVE, new TextButton.Action(
+                    "I'll have two number 9s",
+                    payload // payload is optional
             ));
 
-            JsonObject negativeButtonPayload = new JsonObject();
-            negativeButtonPayload.addProperty("button", "negative");
+            payload = new JsonObject();
+            payload.addProperty("order", "number 9 large");
             Button negativeButton = new TextButton(Button.Color.NEGATIVE, new TextButton.Action(
-                    "Negative button",
-                    negativeButtonPayload
+                    "a number 9 large",
+                    payload // payload is optional
             ));
 
-            JsonObject primaryButtonPayload = new JsonObject();
-            primaryButtonPayload.addProperty("button", "primary");
+            payload = new JsonObject();
+            payload.addProperty("order", "primary");
+            payload.addProperty("extra", "dip");
             Button primaryButton = new TextButton(Button.Color.PRIMARY, new TextButton.Action(
-                    "Primary button",
-                    primaryButtonPayload
+                    "a number 6 with extra dip",
+                    payload // payload is optional
             ));
 
-            JsonObject secondaryButtonPayload = new JsonObject();
-            secondaryButtonPayload.addProperty("button", "secondary");
+            payload = new JsonObject();
+            payload.addProperty("order", "number 7");
             Button secondaryButton = new TextButton(Button.Color.SECONDARY, new TextButton.Action(
-                    "Secondary button",
-                    secondaryButtonPayload
+                    "a number 7",
+                    payload // payload is optional
             ));
 
-            List<Button> row1 = Arrays.asList(positiveButton, negativeButton);
+            List<Button> row1 = Arrays.asList(number9s, negativeButton);
             List<Button> row2 = Arrays.asList(primaryButton, secondaryButton);
 
             Keyboard keyboard = new Keyboard(Arrays.asList(row1, row2));
+            //keyboard.setInline(true); // keyboard can be inline
+            //keyboard.setOneTime(true); // keyboard can be hidden after button clicked
 
             Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
-                    .setMessage("Buttons example")
+                    .setMessage("What do you wish?")
                     .setKeyboard(keyboard)
                     .execute();
 
@@ -86,7 +94,7 @@ public class ButtonsExample extends LongPollBot {
 
             Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
-                    .setMessage("Location button")
+                    .setMessage("Please share your location. I promise no one will know.")
                     .setKeyboard(keyboard)
                     .execute();
 
@@ -100,15 +108,15 @@ public class ButtonsExample extends LongPollBot {
         try {
             Button button = new OpenLinkButton(new OpenLinkButton.Action(
                     "https://github.com/yvasyliev/java-vk-bots-long-poll-api",
-                    "Open Link button",
-                    null
+                    "Java VK Bots Long Poll API"
+                    // your payload can be here
             ));
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
             Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
-                    .setMessage("Open Link button example")
+                    .setMessage("Could you please add a star to this project?")
                     .setKeyboard(keyboard)
                     .execute();
 
@@ -123,16 +131,16 @@ public class ButtonsExample extends LongPollBot {
             Button button = new VKAppsButton(new VKAppsButton.Action(
                     123,
                     456,
-                    "VK Apps button",
-                    null,
-                    null
+                    "VK App",
+                    "hash_string"
+                    // your payload can be here
             ));
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
             Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
-                    .setMessage("VK Apps button example")
+                    .setMessage("Check out this app!")
                     .setKeyboard(keyboard)
                     .execute();
 
@@ -145,15 +153,15 @@ public class ButtonsExample extends LongPollBot {
     public void sendVKPayButton() {
         try {
             Button button = new VKPayButton(new VKPayButton.Action(
-                    "action=transfer-to-group&group_id=1&aid=10",
-                    null
+                    "action=transfer-to-group&group_id=1&aid=10"
+                    // your payload can be here
             ));
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
             Send.Response response = vkBotsApi.messages().send()
                     .setPeerId(PEER_ID)
-                    .setMessage("VK Pay button example")
+                    .setMessage("Please send money for new graphics card")
                     .setKeyboard(keyboard)
                     .execute();
 
@@ -165,14 +173,18 @@ public class ButtonsExample extends LongPollBot {
 
     public void sendCarousel() {
         try {
-            Button button1 = new TextButton(Button.Color.POSITIVE, new TextButton.Action("button1", null));
+            SaveMessagesPhoto.Response.ResponseObject savedPhoto = uploadPhoto(new File("static/blaming.jpg"));
+            Button button1 = new TextButton(Button.Color.POSITIVE, new TextButton.Action("button1"));
             Element element1 = new Element()
+                    .setPhotoId(savedPhoto.getOwnerId(), savedPhoto.getId())
                     .setTitle("Title1")
                     .setDescription("Description1")
                     .setButtons(button1);
 
-            Button button2 = new TextButton(Button.Color.NEGATIVE, new TextButton.Action("button2", null));
+            savedPhoto = uploadPhoto(new File("static/not_understanding.jpg"));
+            Button button2 = new TextButton(Button.Color.NEGATIVE, new TextButton.Action("button2"));
             Element element2 = new Element()
+                    .setPhotoId(savedPhoto.getOwnerId(), savedPhoto.getId())
                     .setTitle("Title2")
                     .setDescription("Description2")
                     .setButtons(button2);
@@ -189,6 +201,24 @@ public class ButtonsExample extends LongPollBot {
         } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
+    }
+
+    private SaveMessagesPhoto.Response.ResponseObject uploadPhoto(File photo) throws VkApiException {
+        GetMessagesUploadServer.Response.ResponseObject uploadServer = vkBotsApi.photos().getMessagesUploadServer()
+                .setPeerId(PEER_ID)
+                .execute()
+                .getResponseObject();
+        UploadPhoto.Response uploadedPhoto = new UploadPhoto()
+                .setUploadUrl(uploadServer.getUploadUrl())
+                .setFile(photo)
+                .execute();
+        return vkBotsApi.photos().saveMessagesPhoto()
+                .setServer(uploadedPhoto.getServer())
+                .setPhoto(uploadedPhoto.getPhoto())
+                .setHash(uploadedPhoto.getHash())
+                .execute()
+                .getResponseObject()
+                .get(0);
     }
 
     public void sendCallbackButton() {
