@@ -15,7 +15,7 @@ public class MarkAsReadExample extends LongPollBot {
 
     public void markAsRead() {
         try {
-            IntegerResponse response = vkBotsApi.messages().markAsRead()
+            IntegerResponse response = vk.messages.markAsRead()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setStartMessageId(START_MESSAGE_ID)
@@ -29,7 +29,7 @@ public class MarkAsReadExample extends LongPollBot {
     }
 
     public void markAsReadAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().markAsRead()
+        CompletableFuture<IntegerResponse> future = vk.messages.markAsRead()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setStartMessageId(START_MESSAGE_ID)

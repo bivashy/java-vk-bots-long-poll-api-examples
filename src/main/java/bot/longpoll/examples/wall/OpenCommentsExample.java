@@ -14,7 +14,7 @@ public class OpenCommentsExample extends LongPollBot {
 
     public void openComments() {
         try {
-            IntegerResponse response = vkBotsApi.wall().openComments()
+            IntegerResponse response = vk.wall.openComments()
                     .setPostId(POST_ID)
                     .setOwnerId(-getGroupId())
                     .execute();
@@ -27,7 +27,7 @@ public class OpenCommentsExample extends LongPollBot {
     }
 
     public void openCommentsAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.wall().openComments()
+        CompletableFuture<IntegerResponse> future = vk.wall.openComments()
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .executeAsync();

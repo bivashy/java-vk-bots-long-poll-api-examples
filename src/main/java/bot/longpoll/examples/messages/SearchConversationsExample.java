@@ -13,7 +13,7 @@ public class SearchConversationsExample extends LongPollBot {
 
     public void searchConversations() {
         try {
-            SearchConversations.Response response = vkBotsApi.messages().searchConversations()
+            SearchConversations.Response response = vk.messages.searchConversations()
                     .setGroupId(getGroupId())
                     .setQ("java")
                     .execute();
@@ -26,7 +26,7 @@ public class SearchConversationsExample extends LongPollBot {
     }
 
     public void searchConversationsAsync() {
-        CompletableFuture<SearchConversations.Response> future = vkBotsApi.messages().searchConversations()
+        CompletableFuture<SearchConversations.Response> future = vk.messages.searchConversations()
                 .setGroupId(getGroupId())
                 .setQ("java")
                 .executeAsync();

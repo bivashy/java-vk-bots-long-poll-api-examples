@@ -14,7 +14,7 @@ public class RestoreMessageExample extends LongPollBot {
 
     public void restoreMessage() {
         try {
-            IntegerResponse response = vkBotsApi.messages().restore()
+            IntegerResponse response = vk.messages.restore()
                     .setMessageId(MESSAGE_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -27,7 +27,7 @@ public class RestoreMessageExample extends LongPollBot {
     }
 
     public void restoreMessageAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().restore()
+        CompletableFuture<IntegerResponse> future = vk.messages.restore()
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

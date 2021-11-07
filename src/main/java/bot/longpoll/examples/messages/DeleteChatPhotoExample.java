@@ -14,7 +14,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
 
     public void deleteChatPhoto() {
         try {
-            DeleteChatPhoto.Response response = vkBotsApi.messages().deleteChatPhoto()
+            DeleteChatPhoto.Response response = vk.messages.deleteChatPhoto()
                     .setGroupId(getGroupId())
                     .setChatId(CHAT_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
     }
 
     public void deleteChatPhotoAsync() {
-        CompletableFuture<DeleteChatPhoto.Response> future = vkBotsApi.messages().deleteChatPhoto()
+        CompletableFuture<DeleteChatPhoto.Response> future = vk.messages.deleteChatPhoto()
                 .setGroupId(getGroupId())
                 .setChatId(CHAT_ID)
                 .executeAsync();

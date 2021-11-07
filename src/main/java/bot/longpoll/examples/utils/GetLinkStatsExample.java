@@ -14,7 +14,7 @@ public class GetLinkStatsExample extends LongPollBot {
 
     public void getLinkStats() {
         try {
-            GetLinkStats.Response response = vkBotsApi.utils().getLinkStats()
+            GetLinkStats.Response response = vk.utils.getLinkStats()
                     .setExtended(true)
                     .setKey(KEY)
                     .execute();
@@ -27,7 +27,7 @@ public class GetLinkStatsExample extends LongPollBot {
     }
 
     public void getLinkStatsAsync() {
-        CompletableFuture<GetLinkStats.Response> future = vkBotsApi.utils().getLinkStats()
+        CompletableFuture<GetLinkStats.Response> future = vk.utils.getLinkStats()
                 .setExtended(true)
                 .setKey(KEY)
                 .executeAsync();

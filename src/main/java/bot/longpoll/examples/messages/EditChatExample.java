@@ -14,7 +14,7 @@ public class EditChatExample extends LongPollBot {
 
     public void editChat() {
         try {
-            IntegerResponse response = vkBotsApi.messages().editChat()
+            IntegerResponse response = vk.messages.editChat()
                     .setChatId(CHAT_ID)
                     .setTitle("Title changed sync")
                     .execute();
@@ -27,7 +27,7 @@ public class EditChatExample extends LongPollBot {
     }
 
     public void editChatAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().editChat()
+        CompletableFuture<IntegerResponse> future = vk.messages.editChat()
                 .setChatId(CHAT_ID)
                 .setTitle("Title changed async")
                 .executeAsync();

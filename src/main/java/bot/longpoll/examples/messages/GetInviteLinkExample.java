@@ -14,7 +14,7 @@ public class GetInviteLinkExample extends LongPollBot {
 
     public void getInviteLink() {
         try {
-            GetInviteLink.Response response = vkBotsApi.messages().getInviteLink()
+            GetInviteLink.Response response = vk.messages.getInviteLink()
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -27,7 +27,7 @@ public class GetInviteLinkExample extends LongPollBot {
     }
 
     public void getInviteLinkAsync() {
-        CompletableFuture<GetInviteLink.Response> future = vkBotsApi.messages().getInviteLink()
+        CompletableFuture<GetInviteLink.Response> future = vk.messages.getInviteLink()
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

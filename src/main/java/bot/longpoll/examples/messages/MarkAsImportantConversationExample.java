@@ -14,7 +14,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversation() {
         try {
-            IntegerResponse response = vkBotsApi.messages().markAsImportantConversation()
+            IntegerResponse response = vk.messages.markAsImportantConversation()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
     }
 
     public void markAsImportantConversationAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().markAsImportantConversation()
+        CompletableFuture<IntegerResponse> future = vk.messages.markAsImportantConversation()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

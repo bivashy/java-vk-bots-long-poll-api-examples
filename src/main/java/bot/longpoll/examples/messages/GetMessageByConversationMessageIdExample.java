@@ -17,7 +17,7 @@ public class GetMessageByConversationMessageIdExample extends LongPollBot {
 
     public void getMessageByConversationMessageId() {
         try {
-            GetByConversationMessageId.Response response = vkBotsApi.messages().getByConversationMessageId()
+            GetByConversationMessageId.Response response = vk.messages.getByConversationMessageId()
                     .setConversationMessageIds(CONVERSATION_MESSAGE_IDS)
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
@@ -31,7 +31,7 @@ public class GetMessageByConversationMessageIdExample extends LongPollBot {
     }
 
     public void getMessageByConversationMessageIdAsync() {
-        CompletableFuture<GetByConversationMessageId.Response> future = vkBotsApi.messages().getByConversationMessageId()
+        CompletableFuture<GetByConversationMessageId.Response> future = vk.messages.getByConversationMessageId()
                 .setConversationMessageIds(CONVERSATION_MESSAGE_IDS)
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())

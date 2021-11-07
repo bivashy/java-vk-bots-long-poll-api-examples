@@ -15,7 +15,7 @@ public class RemoveChatUserExample extends LongPollBot {
 
     public void removeChatUser() {
         try {
-            IntegerResponse response = vkBotsApi.messages().removeChatUser()
+            IntegerResponse response = vk.messages.removeChatUser()
                     .setChatId(CHAT_ID)
                     .setUserId(USER_ID)
                     .execute();
@@ -28,7 +28,7 @@ public class RemoveChatUserExample extends LongPollBot {
     }
 
     public void removeChatUserAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().removeChatUser()
+        CompletableFuture<IntegerResponse> future = vk.messages.removeChatUser()
                 .setChatId(CHAT_ID)
                 .setUserId(USER_ID)
                 .executeAsync();

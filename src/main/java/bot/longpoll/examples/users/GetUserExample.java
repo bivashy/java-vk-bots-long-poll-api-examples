@@ -14,7 +14,7 @@ public class GetUserExample extends LongPollBot {
 
     public void getUser() {
         try {
-            Get.Response response = vkBotsApi.users().get()
+            Get.Response response = vk.users.get()
                     .setUserIds(USER_ID)
                     .execute();
 
@@ -26,7 +26,7 @@ public class GetUserExample extends LongPollBot {
     }
 
     public void getUserAsync() {
-        CompletableFuture<Get.Response> future = vkBotsApi.users().get()
+        CompletableFuture<Get.Response> future = vk.users.get()
                 .setUserIds(USER_ID)
                 .executeAsync();
 

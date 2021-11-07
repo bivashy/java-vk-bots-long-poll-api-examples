@@ -14,7 +14,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
 
     public void markAsAnsweredConversation() {
         try {
-            IntegerResponse response = vkBotsApi.messages().markAsAnsweredConversation()
+            IntegerResponse response = vk.messages.markAsAnsweredConversation()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class MarkAsAnsweredConversationExample extends LongPollBot {
     }
 
     public void markAsAnsweredConversationAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().markAsAnsweredConversation()
+        CompletableFuture<IntegerResponse> future = vk.messages.markAsAnsweredConversation()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .executeAsync();

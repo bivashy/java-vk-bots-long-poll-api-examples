@@ -14,7 +14,7 @@ public class ResolveScreenNameExample extends LongPollBot {
 
     public void resolveScreenName() {
         try {
-            ResolveScreenName.Response response = vkBotsApi.utils().resolveScreenName()
+            ResolveScreenName.Response response = vk.utils.resolveScreenName()
                     .setScreenName(SCREEN_NAME)
                     .execute();
 
@@ -26,7 +26,7 @@ public class ResolveScreenNameExample extends LongPollBot {
     }
 
     public void resolveScreenNameAsync() {
-        CompletableFuture<ResolveScreenName.Response> future = vkBotsApi.utils().resolveScreenName()
+        CompletableFuture<ResolveScreenName.Response> future = vk.utils.resolveScreenName()
                 .setScreenName(SCREEN_NAME)
                 .executeAsync();
 

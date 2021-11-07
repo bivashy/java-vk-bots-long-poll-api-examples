@@ -15,7 +15,7 @@ public class PinMessageExample extends LongPollBot {
 
     public void pinMessage() {
         try {
-            Pin.Response response = vkBotsApi.messages().pin()
+            Pin.Response response = vk.messages.pin()
                     .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                     .setPeerId(PEER_ID)
                     .execute();
@@ -28,7 +28,7 @@ public class PinMessageExample extends LongPollBot {
     }
 
     public void pinMessageAsync() {
-        CompletableFuture<Pin.Response> future = vkBotsApi.messages().pin()
+        CompletableFuture<Pin.Response> future = vk.messages.pin()
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();

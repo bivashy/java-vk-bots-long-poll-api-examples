@@ -2,12 +2,15 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.http.params.MessagePhoto;
 import api.longpoll.bots.methods.impl.messages.Send;
+import api.longpoll.bots.model.objects.additional.VkAttachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
 public class SendMessageExample extends LongPollBot {
@@ -15,12 +18,13 @@ public class SendMessageExample extends LongPollBot {
     private static final int PEER_ID = 918650328;
     private static final File PHOTO = new File("static/smiling_cat.png");
 
-    public void sendMessage() {
+    public void sendMessage() throws IOException {
         try {
-            Send.Response response = vkBotsApi.messages().send()
+            VkAttachment vkAttachment = attachPhoto();
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Sent you photo:")
-                    .setAttachments(new MessagePhoto(getAccessToken(), PEER_ID, PHOTO))
+                    .setAttachments(vkAttachment)
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -30,16 +34,26 @@ public class SendMessageExample extends LongPollBot {
         }
     }
 
-    public void sendMessageAsync() {
-        CompletableFuture<Send.Response> future = vkBotsApi.messages().send()
+    public void sendMessageAsync() throws VkApiException, IOException {
+        VkAttachment vkAttachment = attachPhoto();
+        CompletableFuture<Send.Response> future = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you photo async:")
-                .setAttachments(new MessagePhoto(getAccessToken(), PEER_ID, PHOTO))
+                .setAttachments(vkAttachment)
                 .executeAsync();
 
         // Main thread is free...
 
         System.out.println("Async response: " + future.join());
+    }
+
+    private VkAttachment attachPhoto() throws VkApiException, IOException {
+        try (InputStream inputStream = new FileInputStream(PHOTO)) {
+            return vk.messages.attachPhoto()
+                    .setPeerId(PEER_ID)
+                    .setPhoto(PHOTO.getName(), inputStream)
+                    .execute();
+        }
     }
 
     @Override
@@ -52,7 +66,7 @@ public class SendMessageExample extends LongPollBot {
         return 886761559;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws VkApiException, IOException {
         SendMessageExample example = new SendMessageExample();
         example.sendMessage();
         example.sendMessageAsync();

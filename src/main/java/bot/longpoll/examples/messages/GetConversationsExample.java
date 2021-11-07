@@ -13,7 +13,7 @@ public class GetConversationsExample extends LongPollBot {
 
     public void getConversations() {
         try {
-            GetConversations.Response response = vkBotsApi.messages().getConversations()
+            GetConversations.Response response = vk.messages.getConversations()
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -25,7 +25,7 @@ public class GetConversationsExample extends LongPollBot {
     }
 
     public void getConversationsAsync() {
-        CompletableFuture<GetConversations.Response> future = vkBotsApi.messages().getConversations()
+        CompletableFuture<GetConversations.Response> future = vk.messages.getConversations()
                 .setGroupId(getGroupId())
                 .executeAsync();
 

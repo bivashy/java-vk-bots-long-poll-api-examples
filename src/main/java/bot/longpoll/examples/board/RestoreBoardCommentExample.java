@@ -15,7 +15,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
 
     public void restoreBoardComment() {
         try {
-            IntegerResponse response = vkBotsApi.board().restoreComment()
+            IntegerResponse response = vk.board.restoreComment()
                     .setGroupId(getGroupId())
                     .setTopicId(TOPIC_ID)
                     .setCommentId(COMMENT_ID)
@@ -29,7 +29,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
     }
 
     public void restoreBoardCommentAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.board().restoreComment()
+        CompletableFuture<IntegerResponse> future = vk.board.restoreComment()
                 .setGroupId(getGroupId())
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)

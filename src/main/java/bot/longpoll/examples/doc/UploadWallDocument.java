@@ -9,23 +9,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class UploadWallDocument extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(UploadWallDocument.class);
     private static final File PHOTO = new File("static/smiling_cat.png");
 
     public void uploadWallDoc() {
-        try {
-            GetWallUploadServer.Response wallUploadServer = vkBotsApi.docs().getWallUploadServer()
+        try (InputStream inputStream = new FileInputStream(PHOTO)) {
+            GetWallUploadServer.Response wallUploadServer = vk.docs.getWallUploadServer()
                     .setGroupId(getGroupId())
                     .execute();
 
             UploadDoc.Response uploadDoc = new UploadDoc()
-                    .setUploadUrl(wallUploadServer.getResponseObject().getUploadUrl())
-                    .setFile(PHOTO)
+                    .setUrl(wallUploadServer.getResponseObject().getUploadUrl())
+                    .setDoc(PHOTO.getName(), inputStream)
                     .execute();
 
-            Save.Response response = vkBotsApi.docs().save()
+            Save.Response response = vk.docs.save()
                     .setFile(uploadDoc.getFile())
                     .execute();
 
@@ -33,6 +36,8 @@ public class UploadWallDocument extends LongPollBot {
 
         } catch (VkApiException e) {
             log.error("Error during execution.", e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

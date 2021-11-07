@@ -13,7 +13,7 @@ public class GetByIdExample extends LongPollBot {
 
     public void getById() {
         try {
-            GetById.Response response = vkBotsApi.groups().getById()
+            GetById.Response response = vk.groups.getById()
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -25,7 +25,7 @@ public class GetByIdExample extends LongPollBot {
     }
 
     public void getByIdAsync() {
-        CompletableFuture<GetById.Response> future = vkBotsApi.groups().getById()
+        CompletableFuture<GetById.Response> future = vk.groups.getById()
                 .setGroupId(getGroupId())
                 .executeAsync();
 

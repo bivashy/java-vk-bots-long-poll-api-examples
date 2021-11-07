@@ -2,12 +2,15 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.http.params.MessageDoc;
+import api.longpoll.bots.model.objects.additional.VkAttachment;
 import api.longpoll.bots.model.response.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
 public class EditMessageExample extends LongPollBot {
@@ -15,13 +18,14 @@ public class EditMessageExample extends LongPollBot {
     private static final int PEER_ID = 918650328;
     private static final File GIF = new File("static/vibing_cat.gif");
 
-    public void editMessage() {
+    public void editMessage() throws IOException {
         try {
-            IntegerResponse response = vkBotsApi.messages().edit()
+            VkAttachment vkAttachment = attachDoc();
+            IntegerResponse response = vk.messages.edit()
                     .setPeerId(PEER_ID)
                     .setMessageId(699)
                     .setMessage("Corrected message")
-                    .setAttachments(new MessageDoc(getAccessToken(), PEER_ID, GIF))
+                    .setAttachments(vkAttachment)
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -31,17 +35,28 @@ public class EditMessageExample extends LongPollBot {
         }
     }
 
-    public void editMessageAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().edit()
+    public void editMessageAsync() throws VkApiException, IOException {
+        VkAttachment vkAttachment = attachDoc();
+        CompletableFuture<IntegerResponse> future = vk.messages.edit()
                 .setPeerId(PEER_ID)
                 .setMessageId(700)
                 .setMessage("Corrected message")
-                .setAttachments(new MessageDoc(getAccessToken(), PEER_ID, GIF))
+                .setAttachments(vkAttachment)
                 .executeAsync();
 
         // Main thread is free...
 
         System.out.println("Async response: " + future.join());
+    }
+
+    public VkAttachment attachDoc() throws VkApiException, IOException {
+        try (InputStream inputStream = new FileInputStream(GIF)) {
+            return vk.messages.attachDoc()
+                    .setType("doc")
+                    .setPeerId(PEER_ID)
+                    .setDoc(GIF.getName(), inputStream)
+                    .execute();
+        }
     }
 
     @Override
@@ -54,7 +69,7 @@ public class EditMessageExample extends LongPollBot {
         return 886761559;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws VkApiException, IOException {
         EditMessageExample example = new EditMessageExample();
         example.editMessage();
         example.editMessageAsync();

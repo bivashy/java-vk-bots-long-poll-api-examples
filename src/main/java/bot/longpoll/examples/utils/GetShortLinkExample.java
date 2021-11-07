@@ -14,7 +14,7 @@ public class GetShortLinkExample extends LongPollBot {
 
     public void getShortLink() {
         try {
-            GetShortLink.Response response = vkBotsApi.utils().getShortLink()
+            GetShortLink.Response response = vk.utils.getShortLink()
                     .setUrl(URL)
                     .execute();
 
@@ -26,7 +26,7 @@ public class GetShortLinkExample extends LongPollBot {
     }
 
     public void getShortLinkAsync() {
-        CompletableFuture<GetShortLink.Response> future = vkBotsApi.utils().getShortLink()
+        CompletableFuture<GetShortLink.Response> future = vk.utils.getShortLink()
                 .setUrl(URL)
                 .executeAsync();
 

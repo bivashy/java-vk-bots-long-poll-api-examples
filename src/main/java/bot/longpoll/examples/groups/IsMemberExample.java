@@ -14,7 +14,7 @@ public class IsMemberExample extends LongPollBot {
 
     public void isMember() {
         try {
-            IsMember.Response response = vkBotsApi.groups().isMember()
+            IsMember.Response response = vk.groups.isMember()
                     .setGroupId(getGroupId())
                     .setUserId(USER_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class IsMemberExample extends LongPollBot {
     }
 
     public void isMemberAsync() {
-        CompletableFuture<IsMember.Response> future = vkBotsApi.groups().isMember()
+        CompletableFuture<IsMember.Response> future = vk.groups.isMember()
                 .setGroupId(getGroupId())
                 .setUserId(USER_ID)
                 .executeAsync();

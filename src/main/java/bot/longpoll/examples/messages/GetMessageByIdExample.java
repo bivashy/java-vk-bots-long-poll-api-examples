@@ -16,7 +16,7 @@ public class GetMessageByIdExample extends LongPollBot {
 
     public void getMessageById() {
         try {
-            GetById.Response response = vkBotsApi.messages().getById()
+            GetById.Response response = vk.messages.getById()
                     .setMessageIds(MESSAGE_IDS)
                     .execute();
 
@@ -28,7 +28,7 @@ public class GetMessageByIdExample extends LongPollBot {
     }
 
     public void getMessageByIdAsync() {
-        CompletableFuture<GetById.Response> future = vkBotsApi.messages().getById()
+        CompletableFuture<GetById.Response> future = vk.messages.getById()
                 .setMessageIds(MESSAGE_IDS)
                 .executeAsync();
 

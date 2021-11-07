@@ -13,7 +13,7 @@ public class GetBannedExample extends LongPollBot {
 
     public void getBanned() {
         try {
-            GetBanned.Response response = vkBotsApi.groups().getBanned()
+            GetBanned.Response response = vk.groups.getBanned()
                     .setGroupId(getGroupId())
                     .execute();
 
@@ -25,7 +25,7 @@ public class GetBannedExample extends LongPollBot {
     }
 
     public void getBannedAsync() {
-        CompletableFuture<GetBanned.Response> future = vkBotsApi.groups().getBanned()
+        CompletableFuture<GetBanned.Response> future = vk.groups.getBanned()
                 .setGroupId(getGroupId())
                 .executeAsync();
 

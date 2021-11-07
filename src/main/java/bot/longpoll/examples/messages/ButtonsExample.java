@@ -1,6 +1,5 @@
 package bot.longpoll.examples.messages;
 
-import api.longpoll.bots.BotsLongPoll;
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
 import api.longpoll.bots.methods.impl.messages.Send;
@@ -26,6 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +35,6 @@ import java.util.List;
 public class ButtonsExample extends LongPollBot {
     private static final Logger log = LoggerFactory.getLogger(ButtonsExample.class);
     private static final Integer PEER_ID = 918650328;
-    private static BotsLongPoll botsLongPoll;
 
     public void sendButtons() {
         try {
@@ -74,7 +75,7 @@ public class ButtonsExample extends LongPollBot {
             //keyboard.setInline(true); // keyboard can be inline
             //keyboard.setOneTime(true); // keyboard can be hidden after button clicked
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("What do you wish?")
                     .setKeyboard(keyboard)
@@ -92,7 +93,7 @@ public class ButtonsExample extends LongPollBot {
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Please share your location. I promise no one will know.")
                     .setKeyboard(keyboard)
@@ -114,7 +115,7 @@ public class ButtonsExample extends LongPollBot {
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Could you please add a star to this project?")
                     .setKeyboard(keyboard)
@@ -138,7 +139,7 @@ public class ButtonsExample extends LongPollBot {
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Check out this app!")
                     .setKeyboard(keyboard)
@@ -159,7 +160,7 @@ public class ButtonsExample extends LongPollBot {
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Please send money for new graphics card")
                     .setKeyboard(keyboard)
@@ -171,7 +172,7 @@ public class ButtonsExample extends LongPollBot {
         }
     }
 
-    public void sendCarousel() {
+    public void sendCarousel() throws IOException {
         try {
             SaveMessagesPhoto.Response.ResponseObject savedPhoto = uploadPhoto(new File("static/blaming.jpg"));
             Button button1 = new TextButton(Button.Color.POSITIVE, new TextButton.Action("button1"));
@@ -191,7 +192,7 @@ public class ButtonsExample extends LongPollBot {
 
             Template carousel = new Carousel(Arrays.asList(element1, element2));
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Carousel example")
                     .setTemplate(carousel)
@@ -203,22 +204,24 @@ public class ButtonsExample extends LongPollBot {
         }
     }
 
-    private SaveMessagesPhoto.Response.ResponseObject uploadPhoto(File photo) throws VkApiException {
-        GetMessagesUploadServer.Response.ResponseObject uploadServer = vkBotsApi.photos().getMessagesUploadServer()
-                .setPeerId(PEER_ID)
-                .execute()
-                .getResponseObject();
-        UploadPhoto.Response uploadedPhoto = new UploadPhoto()
-                .setUploadUrl(uploadServer.getUploadUrl())
-                .setFile(photo)
-                .execute();
-        return vkBotsApi.photos().saveMessagesPhoto()
-                .setServer(uploadedPhoto.getServer())
-                .setPhoto(uploadedPhoto.getPhoto())
-                .setHash(uploadedPhoto.getHash())
-                .execute()
-                .getResponseObject()
-                .get(0);
+    private SaveMessagesPhoto.Response.ResponseObject uploadPhoto(File photo) throws VkApiException, IOException {
+        try (InputStream inputStream = new FileInputStream(photo)) {
+            GetMessagesUploadServer.Response.ResponseObject uploadServer = vk.photos.getMessagesUploadServer()
+                    .setPeerId(PEER_ID)
+                    .execute()
+                    .getResponseObject();
+            UploadPhoto.Response uploadedPhoto = new UploadPhoto()
+                    .setUrl(uploadServer.getUploadUrl())
+                    .setPhoto(photo.getName(), inputStream)
+                    .execute();
+            return vk.photos.saveMessagesPhoto()
+                    .setServer(uploadedPhoto.getServer())
+                    .setPhoto(uploadedPhoto.getPhoto())
+                    .setHash(uploadedPhoto.getHash())
+                    .execute()
+                    .getResponseObject()
+                    .get(0);
+        }
     }
 
     public void sendCallbackButton() {
@@ -227,7 +230,7 @@ public class ButtonsExample extends LongPollBot {
             Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                     .setInline(true);
 
-            Send.Response response = vkBotsApi.messages().send()
+            Send.Response response = vk.messages.send()
                     .setPeerId(PEER_ID)
                     .setMessage("Callback button example")
                     .setKeyboard(keyboard)
@@ -242,7 +245,7 @@ public class ButtonsExample extends LongPollBot {
     @Override
     public void onMessageEvent(MessageEvent messageEvent) {
         try {
-            IntegerResponse response = vkBotsApi.messages().sendEventAnswer()
+            IntegerResponse response = vk.messages.sendEventAnswer()
                     .setUserId(messageEvent.getUserId())
                     .setPeerId(messageEvent.getPeerId())
                     .setEventId(messageEvent.getEventId())
@@ -250,7 +253,7 @@ public class ButtonsExample extends LongPollBot {
                     .execute();
 
             System.out.println("Send event answer response: " + response);
-            botsLongPoll.stop();
+            stopPolling();
         } catch (VkApiException e) {
             log.error("Error during execution.", e);
         }
@@ -276,9 +279,8 @@ public class ButtonsExample extends LongPollBot {
             example.sendVKPayButton();
             example.sendCarousel();
             example.sendCallbackButton();
-            botsLongPoll = new BotsLongPoll(example);
-            botsLongPoll.run();
-        } catch (VkApiException e) {
+            example.startPolling();
+        } catch (VkApiException | IOException e) {
             log.error("Something went wrong...", e);
         }
     }

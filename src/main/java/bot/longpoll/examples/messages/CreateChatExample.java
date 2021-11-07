@@ -14,7 +14,7 @@ public class CreateChatExample extends LongPollBot {
 
     public void createChat() {
         try {
-            IntegerResponse response = vkBotsApi.messages().createChat()
+            IntegerResponse response = vk.messages.createChat()
                     .setTitle("New Chat")
                     .setUserIds(USER_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class CreateChatExample extends LongPollBot {
     }
 
     public void createChatAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.messages().createChat()
+        CompletableFuture<IntegerResponse> future = vk.messages.createChat()
                 .setTitle("New Chat Async")
                 .setUserIds(USER_ID)
                 .executeAsync();

@@ -2,8 +2,8 @@ package bot.longpoll.examples.wall;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.http.params.BaseAttachable;
 import api.longpoll.bots.methods.impl.wall.CreateComment;
+import api.longpoll.bots.model.objects.additional.VkAttachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,11 +16,11 @@ public class CreateCommentExample extends LongPollBot {
 
     public void createComment() {
         try {
-            CreateComment.Response response = vkBotsApi.wall().createComment()
+            CreateComment.Response response = vk.wall.createComment()
                     .setPostId(POST_ID)
                     .setOwnerId(-getGroupId())
                     .setMessage("Sync comment")
-                    .setAttachments(new BaseAttachable("photo", -getGroupId(), MEDIA_ID))
+                    .setAttachments(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -31,11 +31,11 @@ public class CreateCommentExample extends LongPollBot {
     }
 
     public void createCommentAsync() {
-        CompletableFuture<CreateComment.Response> future = vkBotsApi.wall().createComment()
+        CompletableFuture<CreateComment.Response> future = vk.wall.createComment()
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .setMessage("Async comment")
-                .setAttachments(new BaseAttachable("photo", -getGroupId(), MEDIA_ID))
+                .setAttachments(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
                 .executeAsync();
 
         // Main thread is free...

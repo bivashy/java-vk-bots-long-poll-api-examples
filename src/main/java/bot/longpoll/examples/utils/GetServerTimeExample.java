@@ -13,7 +13,7 @@ public class GetServerTimeExample extends LongPollBot {
 
     public void getServerTime() {
         try {
-            IntegerResponse response = vkBotsApi.utils().getServerTime()
+            IntegerResponse response = vk.utils.getServerTime()
                     .execute();
 
             System.out.println("Sync response: " + response);
@@ -24,7 +24,7 @@ public class GetServerTimeExample extends LongPollBot {
     }
 
     public void getServerTimeAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.utils().getServerTime()
+        CompletableFuture<IntegerResponse> future = vk.utils.getServerTime()
                 .executeAsync();
 
         // Main thread is free...

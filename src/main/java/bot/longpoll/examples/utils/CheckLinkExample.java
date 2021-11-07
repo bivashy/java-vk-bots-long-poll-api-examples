@@ -14,7 +14,7 @@ public class CheckLinkExample extends LongPollBot {
 
     public void checkLink() {
         try {
-            CheckLink.Response response = vkBotsApi.utils().checkLink()
+            CheckLink.Response response = vk.utils.checkLink()
                     .setUrl(URL)
                     .execute();
 
@@ -26,7 +26,7 @@ public class CheckLinkExample extends LongPollBot {
     }
 
     public void checkLinkAsync() {
-        CompletableFuture<CheckLink.Response> future = vkBotsApi.utils().checkLink()
+        CompletableFuture<CheckLink.Response> future = vk.utils.checkLink()
                 .setUrl(URL)
                 .executeAsync();
 

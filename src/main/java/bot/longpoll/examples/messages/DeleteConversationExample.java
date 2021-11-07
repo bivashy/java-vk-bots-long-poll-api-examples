@@ -14,7 +14,7 @@ public class DeleteConversationExample extends LongPollBot {
 
     public void deleteConversation() {
         try {
-            DeleteConversation.Response response = vkBotsApi.messages().deleteConversation()
+            DeleteConversation.Response response = vk.messages.deleteConversation()
                     .setGroupId(getGroupId())
                     .setPeerId(CHAT_ID)
                     .execute();
@@ -27,7 +27,7 @@ public class DeleteConversationExample extends LongPollBot {
     }
 
     public void deleteConversationAsync() {
-        CompletableFuture<DeleteConversation.Response> future = vkBotsApi.messages().deleteConversation()
+        CompletableFuture<DeleteConversation.Response> future = vk.messages.deleteConversation()
                 .setGroupId(getGroupId())
                 .setPeerId(CHAT_ID)
                 .executeAsync();

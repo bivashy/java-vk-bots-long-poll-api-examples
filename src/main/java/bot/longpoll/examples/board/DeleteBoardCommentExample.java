@@ -15,7 +15,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
 
     public void deleteBoardComment() {
         try {
-            IntegerResponse response = vkBotsApi.board().deleteComment()
+            IntegerResponse response = vk.board.deleteComment()
                     .setTopicId(TOPIC_ID)
                     .setCommentId(COMMENT_ID)
                     .setGroupId(getGroupId())
@@ -29,7 +29,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
     }
 
     public void deleteBoardCommentAsync() {
-        CompletableFuture<IntegerResponse> future = vkBotsApi.board().deleteComment()
+        CompletableFuture<IntegerResponse> future = vk.board.deleteComment()
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .setGroupId(getGroupId())

@@ -14,7 +14,7 @@ public class GetHistoryExample extends LongPollBot {
 
     public void getHistory() {
         try {
-            GetHistory.Response response = vkBotsApi.messages().getHistory()
+            GetHistory.Response response = vk.messages.getHistory()
                     .setPeerId(PEER_ID)
                     .setGroupId(getGroupId())
                     .execute();
@@ -27,7 +27,7 @@ public class GetHistoryExample extends LongPollBot {
     }
 
     public void getHistoryAsync() {
-        CompletableFuture<GetHistory.Response> future = vkBotsApi.messages().getHistory()
+        CompletableFuture<GetHistory.Response> future = vk.messages.getHistory()
                 .setPeerId(PEER_ID)
                 .setGroupId(getGroupId())
                 .executeAsync();

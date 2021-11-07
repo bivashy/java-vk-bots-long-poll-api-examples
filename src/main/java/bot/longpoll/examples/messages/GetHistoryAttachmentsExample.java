@@ -14,7 +14,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachments() {
         try {
-            GetHistoryAttachments.Response response = vkBotsApi.messages().getHistoryAttachments()
+            GetHistoryAttachments.Response response = vk.messages.getHistoryAttachments()
                     .setGroupId(getGroupId())
                     .setPeerId(PEER_ID)
                     .setMediaType("photo")
@@ -28,7 +28,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
     }
 
     public void getHistoryAttachmentsAsync() {
-        CompletableFuture<GetHistoryAttachments.Response> future = vkBotsApi.messages().getHistoryAttachments()
+        CompletableFuture<GetHistoryAttachments.Response> future = vk.messages.getHistoryAttachments()
                 .setGroupId(getGroupId())
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
