@@ -13,24 +13,25 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-public class ButtonsExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(ButtonsExample.class);
+public class InlineButtonsExample extends LongPollBot {
+    private static final Logger log = LoggerFactory.getLogger(InlineButtonsExample.class);
     /**
      * Conversation ID.
      */
     private static final Integer PEER_ID = 918650328;
 
-    public void sendButtons() throws VkApiException {
+    public void sendInlineButtons() throws VkApiException {
         Send.Response response = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("What do you wish?") // message is mandatory
-                .setKeyboard(getKeyboard())
+                .setKeyboard(getInlineKeyboard())
                 .execute();
 
         System.out.println("Send buttons response: " + response);
+
     }
 
-    private Keyboard getKeyboard() {
+    private Keyboard getInlineKeyboard() {
         // button 1
         JsonObject payload = new JsonObject();
         payload.addProperty("order", "number 9");
@@ -83,7 +84,7 @@ public class ButtonsExample extends LongPollBot {
 
     public static void main(String[] args) {
         try {
-            new ButtonsExample().sendButtons();
+            new InlineButtonsExample().sendInlineButtons();
         } catch (VkApiException e) {
             log.error("Something went wrong...", e);
         }
