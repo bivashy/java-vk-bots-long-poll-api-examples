@@ -9,21 +9,26 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CompletableFuture;
 
 public class GetInviteLinkExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetInviteLinkExample.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetInviteLinkExample.class);
     private static final int PEER_ID = 2000000001;
 
-    public void getInviteLink() {
+    public static void main(String[] args) {
         try {
-            GetInviteLink.Response response = vk.messages.getInviteLink()
-                    .setPeerId(PEER_ID)
-                    .setGroupId(getGroupId())
-                    .execute();
-
-            System.out.println("Sync response: " + response);
-
+            GetInviteLinkExample example = new GetInviteLinkExample();
+            example.getInviteLink();
+            example.getInviteLinkAsync();
         } catch (VkApiException e) {
-            log.error("Error during execution.", e);
+            LOGGER.error("Something went wrong...", e);
         }
+    }
+
+    public void getInviteLink() throws VkApiException {
+        GetInviteLink.Response response = vk.messages.getInviteLink()
+                .setPeerId(PEER_ID)
+                .setGroupId(getGroupId())
+                .execute();
+
+        System.out.println("Sync response: " + response);
     }
 
     public void getInviteLinkAsync() {
@@ -40,16 +45,5 @@ public class GetInviteLinkExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) {
-        GetInviteLinkExample example = new GetInviteLinkExample();
-        example.getInviteLink();
-        example.getInviteLinkAsync();
     }
 }

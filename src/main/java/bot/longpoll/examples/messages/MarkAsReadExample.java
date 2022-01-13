@@ -9,23 +9,28 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CompletableFuture;
 
 public class MarkAsReadExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(MarkAsReadExample.class);
-    private static final Integer PEER_ID = 2000000001;
-    private static final Integer START_MESSAGE_ID = 4539;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MarkAsReadExample.class);
+    private static final int PEER_ID = 2000000001;
+    private static final int START_MESSAGE_ID = 4539;
 
-    public void markAsRead() {
+    public static void main(String[] args) {
         try {
-            IntegerResponse response = vk.messages.markAsRead()
-                    .setGroupId(getGroupId())
-                    .setPeerId(PEER_ID)
-                    .setStartMessageId(START_MESSAGE_ID)
-                    .execute();
-
-            System.out.println("Sync response: " + response);
-
+            MarkAsReadExample example = new MarkAsReadExample();
+            example.markAsRead();
+            example.markAsReadAsync();
         } catch (VkApiException e) {
-            log.error("Error during execution.", e);
+            LOGGER.error("Something went wrong...", e);
         }
+    }
+
+    public void markAsRead() throws VkApiException {
+        IntegerResponse response = vk.messages.markAsRead()
+                .setGroupId(getGroupId())
+                .setPeerId(PEER_ID)
+                .setStartMessageId(START_MESSAGE_ID)
+                .execute();
+
+        System.out.println("Sync response: " + response);
     }
 
     public void markAsReadAsync() {
@@ -43,16 +48,5 @@ public class MarkAsReadExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) {
-        MarkAsReadExample example = new MarkAsReadExample();
-        example.markAsRead();
-        example.markAsReadAsync();
     }
 }

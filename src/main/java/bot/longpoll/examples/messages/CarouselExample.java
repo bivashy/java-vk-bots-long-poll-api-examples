@@ -21,11 +21,19 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 public class CarouselExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(CarouselExample.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarouselExample.class);
     /**
      * Conversation ID.
      */
-    private static final Integer PEER_ID = 918650328;
+    private static final int PEER_ID = 918650328;
+
+    public static void main(String[] args) {
+        try {
+            new CarouselExample().sendCarousel();
+        } catch (VkApiException | IOException e) {
+            LOGGER.error("Something went wrong...", e);
+        }
+    }
 
     public void sendCarousel() throws IOException, VkApiException {
         SaveMessagesPhoto.Response.ResponseObject savedPhoto = uploadPhoto(new File("static/blaming.jpg"));
@@ -79,18 +87,5 @@ public class CarouselExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) {
-        try {
-            new CarouselExample().sendCarousel();
-        } catch (VkApiException | IOException e) {
-            log.error("Something went wrong...", e);
-        }
     }
 }

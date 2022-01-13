@@ -14,24 +14,29 @@ import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
 public class SendMessageExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(SendMessageExample.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendMessageExample.class);
     private static final int PEER_ID = 918650328;
     private static final File PHOTO = new File("static/smiling_cat.png");
 
-    public void sendMessage() throws IOException {
+    public static void main(String[] args) {
         try {
-            VkAttachment vkAttachment = attachPhoto();
-            Send.Response response = vk.messages.send()
-                    .setPeerId(PEER_ID)
-                    .setMessage("Sent you photo:")
-                    .setAttachments(vkAttachment)
-                    .execute();
-
-            System.out.println("Sync response: " + response);
-
-        } catch (VkApiException e) {
-            log.error("Error during execution.", e);
+            SendMessageExample example = new SendMessageExample();
+            example.sendMessage();
+            example.sendMessageAsync();
+        } catch (VkApiException | IOException e) {
+            LOGGER.error("Something went wrong...", e);
         }
+    }
+
+    public void sendMessage() throws IOException, VkApiException {
+        VkAttachment vkAttachment = attachPhoto();
+        Send.Response response = vk.messages.send()
+                .setPeerId(PEER_ID)
+                .setMessage("Sent you photo:")
+                .setAttachments(vkAttachment)
+                .execute();
+
+        System.out.println("Sync response: " + response);
     }
 
     public void sendMessageAsync() throws VkApiException, IOException {
@@ -59,16 +64,5 @@ public class SendMessageExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) throws VkApiException, IOException {
-        SendMessageExample example = new SendMessageExample();
-        example.sendMessage();
-        example.sendMessageAsync();
     }
 }

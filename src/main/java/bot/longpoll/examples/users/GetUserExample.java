@@ -9,20 +9,25 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CompletableFuture;
 
 public class GetUserExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetUserExample.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetUserExample.class);
     private static final int USER_ID = 918650328;
 
-    public void getUser() {
+    public static void main(String[] args) {
         try {
-            Get.Response response = vk.users.get()
-                    .setUserIds(USER_ID)
-                    .execute();
-
-            System.out.println("Sync response: " + response);
-
+            GetUserExample example = new GetUserExample();
+            example.getUser();
+            example.getUserAsync();
         } catch (VkApiException e) {
-            log.error("Error during execution.", e);
+            LOGGER.error("Something went wrong...", e);
         }
+    }
+
+    public void getUser() throws VkApiException {
+        Get.Response response = vk.users.get()
+                .setUserIds(USER_ID)
+                .execute();
+
+        System.out.println("Sync response: " + response);
     }
 
     public void getUserAsync() {
@@ -38,16 +43,5 @@ public class GetUserExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) {
-        GetUserExample example = new GetUserExample();
-        example.getUser();
-        example.getUserAsync();
     }
 }

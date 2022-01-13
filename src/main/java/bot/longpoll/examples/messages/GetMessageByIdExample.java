@@ -6,30 +6,33 @@ import api.longpoll.bots.methods.impl.messages.GetById;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class GetMessageByIdExample extends LongPollBot {
-    private static final Logger log = LoggerFactory.getLogger(GetMessageByIdExample.class);
-    private static final List<Integer> MESSAGE_IDS = Collections.singletonList(718);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageByIdExample.class);
+    private static final int MESSAGE_ID = 718;
 
-    public void getMessageById() {
+    public static void main(String[] args) {
         try {
-            GetById.Response response = vk.messages.getById()
-                    .setMessageIds(MESSAGE_IDS)
-                    .execute();
-
-            System.out.println("Sync response: " + response);
-
+            GetMessageByIdExample example = new GetMessageByIdExample();
+            example.getMessageById();
+            example.getMessageByIdAsync();
         } catch (VkApiException e) {
-            log.error("Error during execution.", e);
+            LOGGER.error("Something went wrong...", e);
         }
+    }
+
+    public void getMessageById() throws VkApiException {
+        GetById.Response response = vk.messages.getById()
+                .setMessageIds(MESSAGE_ID)
+                .execute();
+
+        System.out.println("Sync response: " + response);
     }
 
     public void getMessageByIdAsync() {
         CompletableFuture<GetById.Response> future = vk.messages.getById()
-                .setMessageIds(MESSAGE_IDS)
+                .setMessageIds(MESSAGE_ID)
                 .executeAsync();
 
         // Main thread is free...
@@ -40,16 +43,5 @@ public class GetMessageByIdExample extends LongPollBot {
     @Override
     public String getAccessToken() {
         return "8458cbfa085ce2312f67905f84fb9709b76ffcf7e9a77c89b05e79c64b7e710a3a04eb48f46bfcf64e5c9";
-    }
-
-    @Override
-    public int getGroupId() {
-        return 886761559;
-    }
-
-    public static void main(String[] args) {
-        GetMessageByIdExample example = new GetMessageByIdExample();
-        example.getMessageById();
-        example.getMessageByIdAsync();
     }
 }
