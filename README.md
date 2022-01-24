@@ -46,7 +46,8 @@ Checkout the usage of [Java VK Bots Long Poll API](https://github.com/yvasyliev/
 * [Kick user](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/RemoveChatUserExample.java)
 * [Restore message](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/RestoreMessageExample.java)
 * [Search conversations](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/SearchConversationsExample.java)
-* [Send message with photo](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/SendMessageExample.java)
+* [Send message with document](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/DocumentExample.java)
+* [Send message with photo](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/messages/PhotoExample.java)
 ### Users
 * [Get user](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/src/main/java/bot/longpoll/examples/users/GetUserExample.java)
 ### Utils

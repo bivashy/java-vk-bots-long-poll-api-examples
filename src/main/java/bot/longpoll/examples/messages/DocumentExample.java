@@ -2,45 +2,43 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.methods.impl.messages.Send;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
-public class EditMessageExample extends LongPollBot {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EditMessageExample.class);
+public class DocumentExample extends LongPollBot {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhotoExample.class);
     private static final int PEER_ID = 918650328;
-    private static final File GIF = new File("static/vibing_cat.gif");
+    private static final File GIF = new File("static/smiling_cat.png");
 
     public static void main(String[] args) {
         try {
-            EditMessageExample example = new EditMessageExample();
-            example.editMessage();
-            example.editMessageAsync();
+            DocumentExample example = new DocumentExample();
+            example.sendDocument();
+            example.sendDocumentAsync();
         } catch (VkApiException e) {
             LOGGER.error("Something went wrong...", e);
         }
     }
 
-    public void editMessage() throws VkApiException {
-        IntegerResponse response = vk.messages.edit()
+    public void sendDocument() throws VkApiException {
+        Send.Response response = vk.messages.send()
                 .setPeerId(PEER_ID)
-                .setMessageId(699)
-                .setMessage("Corrected message")
-                .addDoc(GIF)
+                .setMessage("Sent you document:")
+                .addPhoto(GIF)
                 .execute();
 
         System.out.println("Sync response: " + response);
     }
 
-    public void editMessageAsync() {
-        CompletableFuture<IntegerResponse> future = vk.messages.edit()
+    public void sendDocumentAsync() {
+        CompletableFuture<Send.Response> future = vk.messages.send()
                 .setPeerId(PEER_ID)
-                .setMessageId(700)
-                .setMessage("Corrected message")
-                .addDoc(GIF)
+                .setMessage("Sent you document async:")
+                .addPhoto(GIF)
                 .executeAsync();
 
         // Main thread is free...
