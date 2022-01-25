@@ -29,7 +29,7 @@ public class CreateCommentExample extends LongPollBot {
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .setMessage("Sync comment")
-                .setAttachments(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
+                .setAttachment(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -40,7 +40,7 @@ public class CreateCommentExample extends LongPollBot {
                 .setPostId(POST_ID)
                 .setOwnerId(-getGroupId())
                 .setMessage("Async comment")
-                .setAttachments(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
+                .setAttachment(new VkAttachment("photo", -getGroupId(), MEDIA_ID))
                 .executeAsync();
 
         // Main thread is free...
