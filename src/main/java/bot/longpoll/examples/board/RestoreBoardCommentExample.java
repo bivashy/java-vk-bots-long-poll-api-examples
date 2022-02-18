@@ -12,6 +12,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestoreBoardCommentExample.class);
     private static final int TOPIC_ID = 47564267;
     private static final int COMMENT_ID = 9;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
 
     public void restoreBoardComment() throws VkApiException {
         IntegerResponse response = vk.board.restoreComment()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .execute();
@@ -35,7 +36,7 @@ public class RestoreBoardCommentExample extends LongPollBot {
 
     public void restoreBoardCommentAsync() {
         CompletableFuture<IntegerResponse> future = vk.board.restoreComment()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
                 .executeAsync();

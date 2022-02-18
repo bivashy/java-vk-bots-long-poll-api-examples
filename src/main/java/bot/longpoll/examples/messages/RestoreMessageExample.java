@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class RestoreMessageExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestoreMessageExample.class);
     private static final int MESSAGE_ID = 726;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class RestoreMessageExample extends LongPollBot {
     public void restoreMessage() throws VkApiException {
         IntegerResponse response = vk.messages.restore()
                 .setMessageId(MESSAGE_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -34,7 +35,7 @@ public class RestoreMessageExample extends LongPollBot {
     public void restoreMessageAsync() {
         CompletableFuture<IntegerResponse> future = vk.messages.restore()
                 .setMessageId(MESSAGE_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

@@ -12,6 +12,7 @@ public class GetMessageByConversationMessageIdExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageByConversationMessageIdExample.class);
     private static final int PEER_ID = 2000000008;
     private static final int CONVERSATION_MESSAGE_ID = 6;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -27,7 +28,7 @@ public class GetMessageByConversationMessageIdExample extends LongPollBot {
         GetByConversationMessageId.Response response = vk.messages.getByConversationMessageId()
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -37,7 +38,7 @@ public class GetMessageByConversationMessageIdExample extends LongPollBot {
         CompletableFuture<GetByConversationMessageId.Response> future = vk.messages.getByConversationMessageId()
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

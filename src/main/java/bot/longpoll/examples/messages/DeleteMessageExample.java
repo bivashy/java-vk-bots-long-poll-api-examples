@@ -12,6 +12,7 @@ public class DeleteMessageExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteMessageExample.class);
     private static final int PEER_ID = 2000000008;
     private static final int CONVERSATION_MESSAGE_ID = 37;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessage() throws VkApiException {
         Delete.Response response = vk.messages.delete()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                 .setDeleteForAll(true)
@@ -36,7 +37,7 @@ public class DeleteMessageExample extends LongPollBot {
 
     public void deleteMessageAsync() {
         CompletableFuture<Delete.Response> future = vk.messages.delete()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                 .setDeleteForAll(true)

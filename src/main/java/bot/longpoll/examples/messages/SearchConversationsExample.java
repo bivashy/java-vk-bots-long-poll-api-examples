@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class SearchConversationsExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchConversationsExample.class);
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -23,7 +24,7 @@ public class SearchConversationsExample extends LongPollBot {
 
     public void searchConversations() throws VkApiException {
         SearchConversations.Response response = vk.messages.searchConversations()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setQ("java")
                 .execute();
 
@@ -32,7 +33,7 @@ public class SearchConversationsExample extends LongPollBot {
 
     public void searchConversationsAsync() {
         CompletableFuture<SearchConversations.Response> future = vk.messages.searchConversations()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setQ("java")
                 .executeAsync();
 

@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetBannedExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetBannedExample.class);
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -23,7 +24,7 @@ public class GetBannedExample extends LongPollBot {
 
     public void getBanned() throws VkApiException {
         GetBanned.Response response = vk.groups.getBanned()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -31,7 +32,7 @@ public class GetBannedExample extends LongPollBot {
 
     public void getBannedAsync() {
         CompletableFuture<GetBanned.Response> future = vk.groups.getBanned()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

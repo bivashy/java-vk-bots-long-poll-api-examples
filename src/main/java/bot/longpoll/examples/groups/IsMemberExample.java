@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class IsMemberExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(IsMemberExample.class);
     private static final int USER_ID = 918650328;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -24,7 +25,7 @@ public class IsMemberExample extends LongPollBot {
 
     public void isMember() throws VkApiException {
         IsMember.Response response = vk.groups.isMember()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setUserId(USER_ID)
                 .execute();
 
@@ -33,7 +34,7 @@ public class IsMemberExample extends LongPollBot {
 
     public void isMemberAsync() {
         CompletableFuture<IsMember.Response> future = vk.groups.isMember()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setUserId(USER_ID)
                 .executeAsync();
 

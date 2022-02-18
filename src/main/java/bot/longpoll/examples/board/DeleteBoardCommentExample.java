@@ -12,6 +12,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteBoardCommentExample.class);
     private static final int TOPIC_ID = 47564267;
     private static final int COMMENT_ID = 9;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -27,7 +28,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
         IntegerResponse response = vk.board.deleteComment()
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -37,7 +38,7 @@ public class DeleteBoardCommentExample extends LongPollBot {
         CompletableFuture<IntegerResponse> future = vk.board.deleteComment()
                 .setTopicId(TOPIC_ID)
                 .setCommentId(COMMENT_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

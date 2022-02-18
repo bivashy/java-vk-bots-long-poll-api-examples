@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class GetInviteLinkExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetInviteLinkExample.class);
     private static final int PEER_ID = 2000000001;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class GetInviteLinkExample extends LongPollBot {
     public void getInviteLink() throws VkApiException {
         GetInviteLink.Response response = vk.messages.getInviteLink()
                 .setPeerId(PEER_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -34,7 +35,7 @@ public class GetInviteLinkExample extends LongPollBot {
     public void getInviteLinkAsync() {
         CompletableFuture<GetInviteLink.Response> future = vk.messages.getInviteLink()
                 .setPeerId(PEER_ID)
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

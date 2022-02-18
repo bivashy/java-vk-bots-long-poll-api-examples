@@ -16,6 +16,7 @@ import java.io.InputStream;
 public class UploadWallDocument extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadWallDocument.class);
     private static final File PHOTO = new File("static/smiling_cat.png");
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -28,7 +29,7 @@ public class UploadWallDocument extends LongPollBot {
     public void uploadWallDoc() throws VkApiException, IOException {
         try (InputStream inputStream = new FileInputStream(PHOTO)) {
             GetWallUploadServer.Response wallUploadServer = vk.docs.getWallUploadServer()
-                    .setGroupId(getGroupId())
+                    .setGroupId(GROUP_ID)
                     .execute();
 
             UploadDoc.Response uploadDoc = new UploadDoc()

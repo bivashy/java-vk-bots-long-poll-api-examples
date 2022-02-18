@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class GetHistoryAttachmentsExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetHistoryAttachmentsExample.class);
     private static final int PEER_ID = 918650328;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -24,7 +25,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachments() throws VkApiException {
         GetHistoryAttachments.Response response = vk.messages.getHistoryAttachments()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
                 .execute();
@@ -34,7 +35,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
     public void getHistoryAttachmentsAsync() {
         CompletableFuture<GetHistoryAttachments.Response> future = vk.messages.getHistoryAttachments()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
                 .executeAsync();

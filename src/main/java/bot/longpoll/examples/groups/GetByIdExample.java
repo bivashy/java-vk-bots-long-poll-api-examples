@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetByIdExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetByIdExample.class);
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -23,7 +24,7 @@ public class GetByIdExample extends LongPollBot {
 
     public void getById() throws VkApiException {
         GetById.Response response = vk.groups.getById()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -31,7 +32,7 @@ public class GetByIdExample extends LongPollBot {
 
     public void getByIdAsync() {
         CompletableFuture<GetById.Response> future = vk.groups.getById()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...

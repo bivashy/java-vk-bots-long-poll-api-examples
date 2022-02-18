@@ -12,6 +12,7 @@ public class MarkAsReadExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarkAsReadExample.class);
     private static final int PEER_ID = 2000000001;
     private static final int START_MESSAGE_ID = 4539;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class MarkAsReadExample extends LongPollBot {
 
     public void markAsRead() throws VkApiException {
         IntegerResponse response = vk.messages.markAsRead()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setStartMessageId(START_MESSAGE_ID)
                 .execute();
@@ -35,7 +36,7 @@ public class MarkAsReadExample extends LongPollBot {
 
     public void markAsReadAsync() {
         CompletableFuture<IntegerResponse> future = vk.messages.markAsRead()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setStartMessageId(START_MESSAGE_ID)
                 .executeAsync();

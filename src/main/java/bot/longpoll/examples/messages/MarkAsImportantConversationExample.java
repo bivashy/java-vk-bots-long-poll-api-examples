@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class MarkAsImportantConversationExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarkAsImportantConversationExample.class);
     private static final int PEER_ID = 2000000001;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -24,7 +25,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversation() throws VkApiException {
         IntegerResponse response = vk.messages.markAsImportantConversation()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .execute();
 
@@ -33,7 +34,7 @@ public class MarkAsImportantConversationExample extends LongPollBot {
 
     public void markAsImportantConversationAsync() {
         CompletableFuture<IntegerResponse> future = vk.messages.markAsImportantConversation()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();
 

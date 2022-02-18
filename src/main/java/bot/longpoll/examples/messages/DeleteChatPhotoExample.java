@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class DeleteChatPhotoExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteChatPhotoExample.class);
     private static final int CHAT_ID = 1;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -24,7 +25,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
 
     public void deleteChatPhoto() throws VkApiException {
         DeleteChatPhoto.Response response = vk.messages.deleteChatPhoto()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setChatId(CHAT_ID)
                 .execute();
 
@@ -33,7 +34,7 @@ public class DeleteChatPhotoExample extends LongPollBot {
 
     public void deleteChatPhotoAsync() {
         CompletableFuture<DeleteChatPhoto.Response> future = vk.messages.deleteChatPhoto()
-                .setGroupId(getGroupId())
+                .setGroupId(GROUP_ID)
                 .setChatId(CHAT_ID)
                 .executeAsync();
 

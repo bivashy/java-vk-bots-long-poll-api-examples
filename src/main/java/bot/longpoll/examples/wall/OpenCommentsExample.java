@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class OpenCommentsExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenCommentsExample.class);
     private static final int POST_ID = 9;
+    private static final int GROUP_ID = 886761559;
 
     public static void main(String[] args) {
         try {
@@ -25,7 +26,7 @@ public class OpenCommentsExample extends LongPollBot {
     public void openComments() throws VkApiException {
         IntegerResponse response = vk.wall.openComments()
                 .setPostId(POST_ID)
-                .setOwnerId(-getGroupId())
+                .setOwnerId(-GROUP_ID)
                 .execute();
 
         System.out.println("Sync response: " + response);
@@ -34,7 +35,7 @@ public class OpenCommentsExample extends LongPollBot {
     public void openCommentsAsync() {
         CompletableFuture<IntegerResponse> future = vk.wall.openComments()
                 .setPostId(POST_ID)
-                .setOwnerId(-getGroupId())
+                .setOwnerId(-GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
