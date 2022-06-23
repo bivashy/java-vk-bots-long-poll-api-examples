@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetByIdExample extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetByIdExample.class);
-    private static final int GROUP_ID = 886761559;
+    private static final String GROUP_ID = "886761559";
 
     public static void main(String[] args) {
         try {
