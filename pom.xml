@@ -18,12 +18,12 @@
         <dependency>
             <groupId>com.github.yvasyliev</groupId>
             <artifactId>java-vk-bots-longpoll-api</artifactId>
-            <version>3.2.10</version>
+            <version>3.2.11</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
         </dependency>
     </dependencies>
 
