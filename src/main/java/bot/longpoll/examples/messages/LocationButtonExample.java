@@ -34,13 +34,13 @@ public class LocationButtonExample extends LongPollBot {
         Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                 .setInline(true);
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Please share your location. I promise no one will know.")
                 .setKeyboard(keyboard)
                 .execute();
 
-        System.out.println("Send location button response: " + response);
+        System.out.println("Send location button responseBody: " + responseBody);
 
     }
 

@@ -23,21 +23,21 @@ public class GetByIdExample extends LongPollBot {
     }
 
     public void getById() throws VkApiException {
-        GetById.Response response = vk.groups.getById()
+        GetById.ResponseBody responseBody = vk.groups.getById()
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getByIdAsync() {
-        CompletableFuture<GetById.Response> future = vk.groups.getById()
+        CompletableFuture<GetById.ResponseBody> future = vk.groups.getById()
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

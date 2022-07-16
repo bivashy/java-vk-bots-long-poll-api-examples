@@ -23,15 +23,15 @@ public class GetMembersExample extends LongPollBot {
     }
 
     public void getMembers() throws VkApiException {
-        GetMembers.Response response = vk.groups.getMembers()
+        GetMembers.ResponseBody responseBody = vk.groups.getMembers()
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getMembersAsync() {
-        CompletableFuture<GetMembers.Response> future = vk.groups.getMembers()
+        CompletableFuture<GetMembers.ResponseBody> future = vk.groups.getMembers()
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 

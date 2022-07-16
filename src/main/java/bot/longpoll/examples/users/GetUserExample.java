@@ -23,21 +23,21 @@ public class GetUserExample extends LongPollBot {
     }
 
     public void getUser() throws VkApiException {
-        Get.Response response = vk.users.get()
+        Get.ResponseBody responseBody = vk.users.get()
                 .setUserIds(USER_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getUserAsync() {
-        CompletableFuture<Get.Response> future = vk.users.get()
+        CompletableFuture<Get.ResponseBody> future = vk.users.get()
                 .setUserIds(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

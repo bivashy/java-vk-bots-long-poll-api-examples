@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Arrays;
 
 public class CarouselExample extends LongPollBot {
@@ -36,7 +36,7 @@ public class CarouselExample extends LongPollBot {
     }
 
     public void sendCarousel() throws IOException, VkApiException {
-        SaveMessagesPhoto.Response.ResponseObject savedPhoto = uploadPhoto(new File("static/blaming.jpg"));
+        SaveMessagesPhoto.ResponseBody.Response savedPhoto = uploadPhoto(new File("static/blaming.jpg"));
         Button button1 = new TextButton(Button.Color.POSITIVE, new TextButton.Action("button1"));
         Element element1 = new Element()
                 .setPhotoId(savedPhoto.getOwnerId(), savedPhoto.getId())
@@ -54,22 +54,22 @@ public class CarouselExample extends LongPollBot {
 
         Template carousel = new Carousel(Arrays.asList(element1, element2));
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Carousel example")
                 .setTemplate(carousel)
                 .execute();
 
-        System.out.println("Send carousel response: " + response);
+        System.out.println("Send carousel responseBody: " + responseBody);
 
     }
 
-    private SaveMessagesPhoto.Response.ResponseObject uploadPhoto(File photo) throws VkApiException, IOException {
-        try (InputStream inputStream = new FileInputStream(photo)) {
-            GetMessagesUploadServer.Response.ResponseObject uploadServer = vk.photos.getMessagesUploadServer()
+    private SaveMessagesPhoto.ResponseBody.Response uploadPhoto(File photo) throws VkApiException, IOException {
+        try (InputStream inputStream = Files.newInputStream(photo.toPath())) {
+            GetMessagesUploadServer.ResponseBody.Response uploadServer = vk.photos.getMessagesUploadServer()
                     .setPeerId(PEER_ID)
                     .execute()
-                    .getResponseObject();
+                    .getResponse();
             UploadPhoto.Response uploadedPhoto = new UploadPhoto()
                     .setUrl(uploadServer.getUploadUrl())
                     .setPhoto(photo.getName(), inputStream)
@@ -79,7 +79,7 @@ public class CarouselExample extends LongPollBot {
                     .setPhoto(uploadedPhoto.getPhoto())
                     .setHash(uploadedPhoto.getHash())
                     .execute()
-                    .getResponseObject()
+                    .getResponse()
                     .get(0);
         }
     }

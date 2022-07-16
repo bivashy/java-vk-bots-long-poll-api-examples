@@ -23,21 +23,21 @@ public class GetBannedExample extends LongPollBot {
     }
 
     public void getBanned() throws VkApiException {
-        GetBanned.Response response = vk.groups.getBanned()
+        GetBanned.ResponseBody responseBody = vk.groups.getBanned()
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getBannedAsync() {
-        CompletableFuture<GetBanned.Response> future = vk.groups.getBanned()
+        CompletableFuture<GetBanned.ResponseBody> future = vk.groups.getBanned()
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

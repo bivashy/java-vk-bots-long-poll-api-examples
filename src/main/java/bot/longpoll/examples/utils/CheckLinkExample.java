@@ -23,21 +23,21 @@ public class CheckLinkExample extends LongPollBot {
     }
 
     public void checkLink() throws VkApiException {
-        CheckLink.Response response = vk.utils.checkLink()
+        CheckLink.ResponseBody responseBody = vk.utils.checkLink()
                 .setUrl(URL)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void checkLinkAsync() {
-        CompletableFuture<CheckLink.Response> future = vk.utils.checkLink()
+        CompletableFuture<CheckLink.ResponseBody> future = vk.utils.checkLink()
                 .setUrl(URL)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

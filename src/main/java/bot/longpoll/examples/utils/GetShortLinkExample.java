@@ -23,21 +23,21 @@ public class GetShortLinkExample extends LongPollBot {
     }
 
     public void getShortLink() throws VkApiException {
-        GetShortLink.Response response = vk.utils.getShortLink()
+        GetShortLink.ResponseBody responseBody = vk.utils.getShortLink()
                 .setUrl(URL)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getShortLinkAsync() {
-        CompletableFuture<GetShortLink.Response> future = vk.utils.getShortLink()
+        CompletableFuture<GetShortLink.ResponseBody> future = vk.utils.getShortLink()
                 .setUrl(URL)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

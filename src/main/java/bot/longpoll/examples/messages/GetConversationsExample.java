@@ -23,21 +23,21 @@ public class GetConversationsExample extends LongPollBot {
     }
 
     public void getConversations() throws VkApiException {
-        GetConversations.Response response = vk.messages.getConversations()
+        GetConversations.ResponseBody responseBody = vk.messages.getConversations()
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getConversationsAsync() {
-        CompletableFuture<GetConversations.Response> future = vk.messages.getConversations()
+        CompletableFuture<GetConversations.ResponseBody> future = vk.messages.getConversations()
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

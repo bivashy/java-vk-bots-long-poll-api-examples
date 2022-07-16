@@ -25,17 +25,17 @@ public class DocumentExample extends LongPollBot {
     }
 
     public void sendDocument() throws VkApiException {
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you document:")
                 .addPhoto(GIF)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void sendDocumentAsync() {
-        CompletableFuture<Send.Response> future = vk.messages.send()
+        CompletableFuture<Send.ResponseBody> future = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you document async:")
                 .addPhoto(GIF)
@@ -43,7 +43,7 @@ public class DocumentExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

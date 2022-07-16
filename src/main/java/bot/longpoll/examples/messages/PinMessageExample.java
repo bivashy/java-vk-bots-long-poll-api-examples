@@ -24,23 +24,23 @@ public class PinMessageExample extends LongPollBot {
     }
 
     public void pinMessage() throws VkApiException {
-        Pin.Response response = vk.messages.pin()
+        Pin.ResponseBody responseBody = vk.messages.pin()
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void pinMessageAsync() {
-        CompletableFuture<Pin.Response> future = vk.messages.pin()
+        CompletableFuture<Pin.ResponseBody> future = vk.messages.pin()
                 .setConversationMessageId(CONVERSATION_MESSAGE_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

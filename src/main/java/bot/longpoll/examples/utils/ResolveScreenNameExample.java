@@ -23,21 +23,21 @@ public class ResolveScreenNameExample extends LongPollBot {
     }
 
     public void resolveScreenName() throws VkApiException {
-        ResolveScreenName.Response response = vk.utils.resolveScreenName()
+        ResolveScreenName.ResponseBody responseBody = vk.utils.resolveScreenName()
                 .setScreenName(SCREEN_NAME)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void resolveScreenNameAsync() {
-        CompletableFuture<ResolveScreenName.Response> future = vk.utils.resolveScreenName()
+        CompletableFuture<ResolveScreenName.ResponseBody> future = vk.utils.resolveScreenName()
                 .setScreenName(SCREEN_NAME)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

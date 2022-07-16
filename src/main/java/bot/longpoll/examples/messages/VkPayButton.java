@@ -38,13 +38,13 @@ public class VkPayButton extends LongPollBot {
         Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                 .setInline(true);
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Please send money for new graphics card")
                 .setKeyboard(keyboard)
                 .execute();
 
-        System.out.println("Send VK Pay button response: " + response);
+        System.out.println("Send VK Pay button responseBody: " + responseBody);
     }
 
     @Override

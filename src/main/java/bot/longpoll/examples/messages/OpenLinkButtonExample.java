@@ -39,13 +39,13 @@ public class OpenLinkButtonExample extends LongPollBot {
         Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                 .setInline(true);
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Could you please add a star to this project?")
                 .setKeyboard(keyboard)
                 .execute();
 
-        System.out.println("Send Open Link button response: " + response);
+        System.out.println("Send Open Link button responseBody: " + responseBody);
     }
 
     @Override

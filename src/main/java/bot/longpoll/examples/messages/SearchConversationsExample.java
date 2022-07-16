@@ -23,23 +23,23 @@ public class SearchConversationsExample extends LongPollBot {
     }
 
     public void searchConversations() throws VkApiException {
-        SearchConversations.Response response = vk.messages.searchConversations()
+        SearchConversations.ResponseBody responseBody = vk.messages.searchConversations()
                 .setGroupId(GROUP_ID)
                 .setQ("java")
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void searchConversationsAsync() {
-        CompletableFuture<SearchConversations.Response> future = vk.messages.searchConversations()
+        CompletableFuture<SearchConversations.ResponseBody> future = vk.messages.searchConversations()
                 .setGroupId(GROUP_ID)
                 .setQ("java")
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

@@ -3,7 +3,7 @@ package bot.longpoll.examples.wall;
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
 import api.longpoll.bots.methods.impl.wall.CreateComment;
-import api.longpoll.bots.model.objects.additional.VkAttachment;
+import api.longpoll.bots.model.objects.additional.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +14,28 @@ public class CreateCommentExample extends LongPollBot {
     private static final int POST_ID = 9;
     private static final int MEDIA_ID = 457239025;
     private static final int GROUP_ID = 886761559;
+
+    private static class UploadedPhoto extends UploadedFile {
+        @Override
+        public String getType() {
+            return "photo";
+        }
+
+        @Override
+        public int getOwnerId() {
+            return -GROUP_ID;
+        }
+
+        @Override
+        public int getMediaId() {
+            return MEDIA_ID;
+        }
+
+        @Override
+        public String getAccessKey() {
+            return null;
+        }
+    }
 
     public static void main(String[] args) {
         try {
@@ -26,27 +48,27 @@ public class CreateCommentExample extends LongPollBot {
     }
 
     public void createComment() throws VkApiException {
-        CreateComment.Response response = vk.wall.createComment()
+        CreateComment.ResponseBody responseBody = vk.wall.createComment()
                 .setPostId(POST_ID)
                 .setOwnerId(-GROUP_ID)
                 .setMessage("Sync comment")
-                .setAttachment(new VkAttachment("photo", -GROUP_ID, MEDIA_ID))
+                .setAttachment(new UploadedPhoto())
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void createCommentAsync() {
-        CompletableFuture<CreateComment.Response> future = vk.wall.createComment()
+        CompletableFuture<CreateComment.ResponseBody> future = vk.wall.createComment()
                 .setPostId(POST_ID)
                 .setOwnerId(-GROUP_ID)
                 .setMessage("Async comment")
-                .setAttachment(new VkAttachment("photo", -GROUP_ID, MEDIA_ID))
+                .setAttachment(new UploadedPhoto())
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

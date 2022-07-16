@@ -2,7 +2,7 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.model.response.IntegerResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,23 +24,23 @@ public class MarkAsImportantConversationExample extends LongPollBot {
     }
 
     public void markAsImportantConversation() throws VkApiException {
-        IntegerResponse response = vk.messages.markAsImportantConversation()
+        IntegerResponseBody responseBody = vk.messages.markAsImportantConversation()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void markAsImportantConversationAsync() {
-        CompletableFuture<IntegerResponse> future = vk.messages.markAsImportantConversation()
+        CompletableFuture<IntegerResponseBody> future = vk.messages.markAsImportantConversation()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

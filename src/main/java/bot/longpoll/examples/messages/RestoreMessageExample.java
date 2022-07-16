@@ -2,7 +2,7 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.model.response.IntegerResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,23 +24,23 @@ public class RestoreMessageExample extends LongPollBot {
     }
 
     public void restoreMessage() throws VkApiException {
-        IntegerResponse response = vk.messages.restore()
+        IntegerResponseBody responseBody = vk.messages.restore()
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void restoreMessageAsync() {
-        CompletableFuture<IntegerResponse> future = vk.messages.restore()
+        CompletableFuture<IntegerResponseBody> future = vk.messages.restore()
                 .setMessageId(MESSAGE_ID)
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

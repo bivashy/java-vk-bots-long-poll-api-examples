@@ -24,23 +24,23 @@ public class GetHistoryExample extends LongPollBot {
     }
 
     public void getHistory() throws VkApiException {
-        GetHistory.Response response = vk.messages.getHistory()
+        GetHistory.ResponseBody responseBody = vk.messages.getHistory()
                 .setPeerId(PEER_ID)
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getHistoryAsync() {
-        CompletableFuture<GetHistory.Response> future = vk.messages.getHistory()
+        CompletableFuture<GetHistory.ResponseBody> future = vk.messages.getHistory()
                 .setPeerId(PEER_ID)
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

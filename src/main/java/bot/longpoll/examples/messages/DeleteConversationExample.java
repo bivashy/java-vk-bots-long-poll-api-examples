@@ -24,23 +24,23 @@ public class DeleteConversationExample extends LongPollBot {
     }
 
     public void deleteConversation() throws VkApiException {
-        DeleteConversation.Response response = vk.messages.deleteConversation()
+        DeleteConversation.ResponseBody responseBody = vk.messages.deleteConversation()
                 .setGroupId(GROUP_ID)
                 .setPeerId(CHAT_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void deleteConversationAsync() {
-        CompletableFuture<DeleteConversation.Response> future = vk.messages.deleteConversation()
+        CompletableFuture<DeleteConversation.ResponseBody> future = vk.messages.deleteConversation()
                 .setGroupId(GROUP_ID)
                 .setPeerId(CHAT_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

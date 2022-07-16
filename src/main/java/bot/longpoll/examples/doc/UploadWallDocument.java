@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 public class UploadWallDocument extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadWallDocument.class);
@@ -27,21 +27,21 @@ public class UploadWallDocument extends LongPollBot {
     }
 
     public void uploadWallDoc() throws VkApiException, IOException {
-        try (InputStream inputStream = new FileInputStream(PHOTO)) {
-            GetWallUploadServer.Response wallUploadServer = vk.docs.getWallUploadServer()
+        try (InputStream inputStream = Files.newInputStream(PHOTO.toPath())) {
+            GetWallUploadServer.ResponseBody wallUploadServer = vk.docs.getWallUploadServer()
                     .setGroupId(GROUP_ID)
                     .execute();
 
             UploadDoc.Response uploadDoc = new UploadDoc()
-                    .setUrl(wallUploadServer.getResponseObject().getUploadUrl())
+                    .setUrl(wallUploadServer.getResponse().getUploadUrl())
                     .setDoc(PHOTO.getName(), inputStream)
                     .execute();
 
-            Save.Response response = vk.docs.save()
+            Save.ResponseBody responseBody = vk.docs.save()
                     .setFile(uploadDoc.getFile())
                     .execute();
 
-            System.out.println("Sync response: " + response);
+            System.out.println("Sync responseBody: " + responseBody);
         }
     }
 

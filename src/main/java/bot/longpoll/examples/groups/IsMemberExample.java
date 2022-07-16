@@ -24,23 +24,23 @@ public class IsMemberExample extends LongPollBot {
     }
 
     public void isMember() throws VkApiException {
-        IsMember.Response response = vk.groups.isMember()
+        IsMember.ResponseBody responseBody = vk.groups.isMember()
                 .setGroupId(GROUP_ID)
                 .setUserId(USER_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void isMemberAsync() {
-        CompletableFuture<IsMember.Response> future = vk.groups.isMember()
+        CompletableFuture<IsMember.ResponseBody> future = vk.groups.isMember()
                 .setGroupId(GROUP_ID)
                 .setUserId(USER_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

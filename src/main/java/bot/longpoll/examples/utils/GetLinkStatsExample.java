@@ -23,23 +23,23 @@ public class GetLinkStatsExample extends LongPollBot {
     }
 
     public void getLinkStats() throws VkApiException {
-        GetLinkStats.Response response = vk.utils.getLinkStats()
+        GetLinkStats.ResponseBody responseBody = vk.utils.getLinkStats()
                 .setExtended(true)
                 .setKey(KEY)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getLinkStatsAsync() {
-        CompletableFuture<GetLinkStats.Response> future = vk.utils.getLinkStats()
+        CompletableFuture<GetLinkStats.ResponseBody> future = vk.utils.getLinkStats()
                 .setExtended(true)
                 .setKey(KEY)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

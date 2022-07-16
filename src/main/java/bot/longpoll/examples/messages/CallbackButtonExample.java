@@ -8,7 +8,7 @@ import api.longpoll.bots.model.objects.additional.EventData;
 import api.longpoll.bots.model.objects.additional.Keyboard;
 import api.longpoll.bots.model.objects.additional.buttons.Button;
 import api.longpoll.bots.model.objects.additional.buttons.CallbackButton;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.model.response.IntegerResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,26 +36,26 @@ public class CallbackButtonExample extends LongPollBot {
         Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                 .setInline(true);
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Callback button example")
                 .setKeyboard(keyboard)
                 .execute();
 
-        System.out.println("Send callback button response: " + response);
+        System.out.println("Send callback button responseBody: " + responseBody);
     }
 
     @Override
     public void onMessageEvent(MessageEvent messageEvent) {
         try {
-            IntegerResponse response = vk.messages.sendEventAnswer()
+            IntegerResponseBody responseBody = vk.messages.sendEventAnswer()
                     .setUserId(messageEvent.getUserId())
                     .setPeerId(messageEvent.getPeerId())
                     .setEventId(messageEvent.getEventId())
                     .setEventData(new EventData.ShowSnackbar("Callback button was clicked!"))
                     .execute();
 
-            System.out.println("Send event answer response: " + response);
+            System.out.println("Send event answer responseBody: " + responseBody);
             stopPolling();
         } catch (VkApiException e) {
             e.printStackTrace();

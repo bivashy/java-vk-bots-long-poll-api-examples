@@ -2,7 +2,7 @@ package bot.longpoll.examples.messages;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.model.response.IntegerResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,23 +23,23 @@ public class EditChatExample extends LongPollBot {
     }
 
     public void editChat() throws VkApiException {
-        IntegerResponse response = vk.messages.editChat()
+        IntegerResponseBody responseBody = vk.messages.editChat()
                 .setChatId(CHAT_ID)
                 .setTitle("Title changed sync")
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void editChatAsync() {
-        CompletableFuture<IntegerResponse> future = vk.messages.editChat()
+        CompletableFuture<IntegerResponseBody> future = vk.messages.editChat()
                 .setChatId(CHAT_ID)
                 .setTitle("Title changed async")
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

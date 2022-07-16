@@ -29,17 +29,17 @@ public class InlineButtonsExample extends LongPollBot {
     }
 
     public void sendInlineButtons() throws VkApiException {
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("What do you wish?") // message is mandatory
-                .setKeyboard(getInlineKeyboard())
+                .setKeyboard(createInlineKeyboard())
                 .execute();
 
-        System.out.println("Send buttons response: " + response);
+        System.out.println("Send buttons responseBody: " + responseBody);
 
     }
 
-    private Keyboard getInlineKeyboard() {
+    private Keyboard createInlineKeyboard() {
         // button 1
         JsonObject payload = new JsonObject();
         payload.addProperty("order", "number 9");

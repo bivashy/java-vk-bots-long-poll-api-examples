@@ -25,18 +25,18 @@ public class DeleteMessageExample extends LongPollBot {
     }
 
     public void deleteMessage() throws VkApiException {
-        Delete.Response response = vk.messages.delete()
+        Delete.ResponseBody responseBody = vk.messages.delete()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
                 .setDeleteForAll(true)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void deleteMessageAsync() {
-        CompletableFuture<Delete.Response> future = vk.messages.delete()
+        CompletableFuture<Delete.ResponseBody> future = vk.messages.delete()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setConversationMessageIds(CONVERSATION_MESSAGE_ID)
@@ -45,7 +45,7 @@ public class DeleteMessageExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

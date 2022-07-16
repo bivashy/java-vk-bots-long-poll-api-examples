@@ -24,17 +24,17 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
     }
 
     public void getHistoryAttachments() throws VkApiException {
-        GetHistoryAttachments.Response response = vk.messages.getHistoryAttachments()
+        GetHistoryAttachments.ResponseBody responseBody = vk.messages.getHistoryAttachments()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getHistoryAttachmentsAsync() {
-        CompletableFuture<GetHistoryAttachments.Response> future = vk.messages.getHistoryAttachments()
+        CompletableFuture<GetHistoryAttachments.ResponseBody> future = vk.messages.getHistoryAttachments()
                 .setGroupId(GROUP_ID)
                 .setPeerId(PEER_ID)
                 .setMediaType("photo")
@@ -42,7 +42,7 @@ public class GetHistoryAttachmentsExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

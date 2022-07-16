@@ -29,16 +29,16 @@ public class ButtonsExample extends LongPollBot {
     }
 
     public void sendButtons() throws VkApiException {
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("What do you wish?") // message is mandatory
-                .setKeyboard(getKeyboard())
+                .setKeyboard(createKeyboard())
                 .execute();
 
-        System.out.println("Send buttons response: " + response);
+        System.out.println("Send buttons responseBody: " + responseBody);
     }
 
-    private Keyboard getKeyboard() {
+    private Keyboard createKeyboard() {
         // button 1
         JsonObject payload = new JsonObject();
         payload.addProperty("order", "number 9");

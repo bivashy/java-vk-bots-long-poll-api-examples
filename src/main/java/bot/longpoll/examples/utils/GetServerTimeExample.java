@@ -2,7 +2,7 @@ package bot.longpoll.examples.utils;
 
 import api.longpoll.bots.LongPollBot;
 import api.longpoll.bots.exceptions.VkApiException;
-import api.longpoll.bots.model.response.IntegerResponse;
+import api.longpoll.bots.model.response.IntegerResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,19 +22,19 @@ public class GetServerTimeExample extends LongPollBot {
     }
 
     public void getServerTime() throws VkApiException {
-        IntegerResponse response = vk.utils.getServerTime()
+        IntegerResponseBody responseBody = vk.utils.getServerTime()
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getServerTimeAsync() {
-        CompletableFuture<IntegerResponse> future = vk.utils.getServerTime()
+        CompletableFuture<IntegerResponseBody> future = vk.utils.getServerTime()
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

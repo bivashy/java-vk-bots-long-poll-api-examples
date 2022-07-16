@@ -24,17 +24,17 @@ public class GetConversationsByIdExample extends LongPollBot {
     }
 
     public void getConversationsById() throws VkApiException {
-        GetConversationsById.Response response = vk.messages.getConversationsById()
+        GetConversationsById.ResponseBody responseBody = vk.messages.getConversationsById()
                 .setGroupId(GROUP_ID)
                 .setPeerIds(PEER_ID)
                 .setExtended(true)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void editMessageAsync() {
-        CompletableFuture<GetConversationsById.Response> future = vk.messages.getConversationsById()
+        CompletableFuture<GetConversationsById.ResponseBody> future = vk.messages.getConversationsById()
                 .setGroupId(GROUP_ID)
                 .setPeerIds(PEER_ID)
                 .setExtended(true)
@@ -42,7 +42,7 @@ public class GetConversationsByIdExample extends LongPollBot {
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

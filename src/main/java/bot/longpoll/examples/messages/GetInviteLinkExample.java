@@ -24,23 +24,23 @@ public class GetInviteLinkExample extends LongPollBot {
     }
 
     public void getInviteLink() throws VkApiException {
-        GetInviteLink.Response response = vk.messages.getInviteLink()
+        GetInviteLink.ResponseBody responseBody = vk.messages.getInviteLink()
                 .setPeerId(PEER_ID)
                 .setGroupId(GROUP_ID)
                 .execute();
 
-        System.out.println("Sync response: " + response);
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     public void getInviteLinkAsync() {
-        CompletableFuture<GetInviteLink.Response> future = vk.messages.getInviteLink()
+        CompletableFuture<GetInviteLink.ResponseBody> future = vk.messages.getInviteLink()
                 .setPeerId(PEER_ID)
                 .setGroupId(GROUP_ID)
                 .executeAsync();
 
         // Main thread is free...
 
-        System.out.println("Async response: " + future.join());
+        System.out.println("Async responseBody: " + future.join());
     }
 
     @Override

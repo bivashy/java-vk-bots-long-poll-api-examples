@@ -40,13 +40,13 @@ public class VKAppsButtonExample extends LongPollBot {
         Keyboard keyboard = new Keyboard(Collections.singletonList(Collections.singletonList(button)))
                 .setInline(true);
 
-        Send.Response response = vk.messages.send()
+        Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Check out this app!")
                 .setKeyboard(keyboard)
                 .execute();
 
-        System.out.println("Send VK Apps button response: " + response);
+        System.out.println("Send VK Apps button responseBody: " + responseBody);
     }
 
     @Override
