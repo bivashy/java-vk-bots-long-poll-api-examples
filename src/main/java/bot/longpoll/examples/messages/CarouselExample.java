@@ -70,10 +70,12 @@ public class CarouselExample extends LongPollBot {
                     .setPeerId(PEER_ID)
                     .execute()
                     .getResponse();
-            UploadPhoto.Response uploadedPhoto = new UploadPhoto()
-                    .setUrl(uploadServer.getUploadUrl())
-                    .setPhoto(photo.getName(), inputStream)
-                    .execute();
+            UploadPhoto.Response uploadedPhoto = new UploadPhoto(
+                    uploadServer.getUploadUrl(),
+                    photo.getName(),
+                    inputStream
+            ).execute();
+
             return vk.photos.saveMessagesPhoto()
                     .setServer(uploadedPhoto.getServer())
                     .setPhoto(uploadedPhoto.getPhoto())

@@ -32,10 +32,11 @@ public class UploadWallDocument extends LongPollBot {
                     .setGroupId(GROUP_ID)
                     .execute();
 
-            UploadDoc.Response uploadDoc = new UploadDoc()
-                    .setUrl(wallUploadServer.getResponse().getUploadUrl())
-                    .setDoc(PHOTO.getName(), inputStream)
-                    .execute();
+            UploadDoc.Response uploadDoc = new UploadDoc(
+                    wallUploadServer.getResponse().getUploadUrl(),
+                    PHOTO.getName(),
+                    inputStream
+            ).execute();
 
             Save.ResponseBody responseBody = vk.docs.save()
                     .setFile(uploadDoc.getFile())
