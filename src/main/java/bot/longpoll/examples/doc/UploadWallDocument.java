@@ -32,7 +32,7 @@ public class UploadWallDocument extends LongPollBot {
                     .setGroupId(GROUP_ID)
                     .execute();
 
-            UploadDoc.Response uploadDoc = new UploadDoc(
+            UploadDoc.ResponseBody uploadDoc = new UploadDoc(
                     wallUploadServer.getResponse().getUploadUrl(),
                     PHOTO.getName(),
                     inputStream
