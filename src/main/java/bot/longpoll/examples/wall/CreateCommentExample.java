@@ -14,28 +14,7 @@ public class CreateCommentExample extends LongPollBot {
     private static final int POST_ID = 9;
     private static final int MEDIA_ID = 457239025;
     private static final int GROUP_ID = 886761559;
-
-    private static class UploadedPhoto extends UploadedFile {
-        @Override
-        public String getType() {
-            return "photo";
-        }
-
-        @Override
-        public int getOwnerId() {
-            return -GROUP_ID;
-        }
-
-        @Override
-        public int getMediaId() {
-            return MEDIA_ID;
-        }
-
-        @Override
-        public String getAccessKey() {
-            return null;
-        }
-    }
+    private static final UploadedFile UPLOADED_FILE = new UploadedFile("photo", -GROUP_ID, MEDIA_ID, null);
 
     public static void main(String[] args) {
         try {
@@ -52,7 +31,7 @@ public class CreateCommentExample extends LongPollBot {
                 .setPostId(POST_ID)
                 .setOwnerId(-GROUP_ID)
                 .setMessage("Sync comment")
-                .setAttachment(new UploadedPhoto())
+                .setAttachment(UPLOADED_FILE)
                 .execute();
 
         System.out.println("Sync responseBody: " + responseBody);
@@ -63,7 +42,7 @@ public class CreateCommentExample extends LongPollBot {
                 .setPostId(POST_ID)
                 .setOwnerId(-GROUP_ID)
                 .setMessage("Async comment")
-                .setAttachment(new UploadedPhoto())
+                .setAttachment(UPLOADED_FILE)
                 .executeAsync();
 
         // Main thread is free...
