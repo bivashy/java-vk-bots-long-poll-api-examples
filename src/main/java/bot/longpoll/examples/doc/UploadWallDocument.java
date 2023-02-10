@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 
 public class UploadWallDocument extends LongPollBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadWallDocument.class);
@@ -27,23 +25,18 @@ public class UploadWallDocument extends LongPollBot {
     }
 
     public void uploadWallDoc() throws VkApiException, IOException {
-        try (InputStream inputStream = Files.newInputStream(PHOTO.toPath())) {
-            GetWallUploadServer.ResponseBody wallUploadServer = vk.docs.getWallUploadServer()
-                    .setGroupId(GROUP_ID)
-                    .execute();
+        GetWallUploadServer.ResponseBody wallUploadServer = vk.docs.getWallUploadServer()
+                .setGroupId(GROUP_ID)
+                .execute();
 
-            UploadDoc.ResponseBody uploadDoc = new UploadDoc(
-                    wallUploadServer.getResponse().getUploadUrl(),
-                    PHOTO.getName(),
-                    inputStream
-            ).execute();
+        UploadDoc.ResponseBody uploadDoc = new UploadDoc(wallUploadServer.getResponse().getUploadUrl(), PHOTO)
+                .execute();
 
-            Save.ResponseBody responseBody = vk.docs.save()
-                    .setFile(uploadDoc.getFile())
-                    .execute();
+        Save.ResponseBody responseBody = vk.docs.save()
+                .setFile(uploadDoc.getFile())
+                .execute();
 
-            System.out.println("Sync responseBody: " + responseBody);
-        }
+        System.out.println("Sync responseBody: " + responseBody);
     }
 
     @Override

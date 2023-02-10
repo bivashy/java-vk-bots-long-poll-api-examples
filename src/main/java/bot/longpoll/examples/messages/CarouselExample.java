@@ -16,8 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.Arrays;
 
 public class CarouselExample extends LongPollBot {
@@ -65,25 +63,19 @@ public class CarouselExample extends LongPollBot {
     }
 
     private SaveMessagesPhoto.ResponseBody.Response uploadPhoto(File photo) throws VkApiException, IOException {
-        try (InputStream inputStream = Files.newInputStream(photo.toPath())) {
-            GetMessagesUploadServer.ResponseBody.Response uploadServer = vk.photos.getMessagesUploadServer()
-                    .setPeerId(PEER_ID)
-                    .execute()
-                    .getResponse();
-            UploadPhoto.ResponseBody uploadedPhoto = new UploadPhoto(
-                    uploadServer.getUploadUrl(),
-                    photo.getName(),
-                    inputStream
-            ).execute();
+        GetMessagesUploadServer.ResponseBody.Response uploadServer = vk.photos.getMessagesUploadServer()
+                .setPeerId(PEER_ID)
+                .execute()
+                .getResponse();
+        UploadPhoto.ResponseBody uploadedPhoto = new UploadPhoto(uploadServer.getUploadUrl(), photo).execute();
 
-            return vk.photos.saveMessagesPhoto()
-                    .setServer(uploadedPhoto.getServer())
-                    .setPhoto(uploadedPhoto.getPhoto())
-                    .setHash(uploadedPhoto.getHash())
-                    .execute()
-                    .getResponse()
-                    .get(0);
-        }
+        return vk.photos.saveMessagesPhoto()
+                .setServer(uploadedPhoto.getServer())
+                .setPhoto(uploadedPhoto.getPhoto())
+                .setHash(uploadedPhoto.getHash())
+                .execute()
+                .getResponse()
+                .get(0);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class DocumentExample extends LongPollBot {
         Send.ResponseBody responseBody = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you document:")
-                .addPhoto(GIF)
+                .addDoc(GIF)
                 .execute();
 
         System.out.println("Sync responseBody: " + responseBody);
@@ -38,7 +38,7 @@ public class DocumentExample extends LongPollBot {
         CompletableFuture<Send.ResponseBody> future = vk.messages.send()
                 .setPeerId(PEER_ID)
                 .setMessage("Sent you document async:")
-                .addPhoto(GIF)
+                .addDoc(GIF)
                 .executeAsync();
 
         // Main thread is free...
