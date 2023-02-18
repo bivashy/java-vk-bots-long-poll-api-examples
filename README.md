@@ -1,6 +1,6 @@
 ![Build status](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/actions/workflows/build-maven-project.yml/badge.svg?branch=master)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/blob/master/LICENSE)
-![Build status](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/actions/workflows/build-maven-project.yml/badge.svg?branch=master)
+![CodeQL](https://github.com/yvasyliev/java-vk-bots-long-poll-api-examples/workflows/CodeQL/badge.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 # Java VK Bots Long Poll API Examples
 
