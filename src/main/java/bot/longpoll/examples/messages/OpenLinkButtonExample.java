@@ -32,7 +32,7 @@ public class OpenLinkButtonExample extends LongPollBot {
         JsonObject payload = new JsonObject();
         payload.addProperty("data", "some data");
         Button button = new OpenLinkButton(new OpenLinkButton.Action(
-                "https://github.com/yvasyliev/java-vk-bots-long-poll-api",
+                "https://github.com/bivashy/java-vk-bots-long-poll-api",
                 "Java VK Bots Long Poll API",
                 payload // payload is optional
         ));
